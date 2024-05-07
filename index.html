@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
   <body>
     <div id="main">
@@ -22,7 +26,7 @@
             <span>EXPENSES</span>
 
             <span id="totalExpenses">-2,000.00</span>
-            <span id="precentage">14%</span>
+            <span class="precentage">14%</span>
           </div>
         </div>
       </div>
@@ -30,10 +34,18 @@
       <!-- middle part -->
       <div id="inputContainer">
         <form id="inputForm">
-          <input type="text" id="typeOfInput" />
+          <input type="text" maxlength="1" id="typeOfInput" placeholder="-" />
           <input type="text" id="description" placeholder="Add description" />
           <input type="text" id="value" placeholder="Value" />
-          <svg id="checkMarkIcon" src="icon"><!-- enter icon here --></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            id="checkmark"
+          >
+            <path
+              d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z"
+            />
+          </svg>
         </form>
       </div>
 
@@ -42,23 +54,49 @@
         <div id="fullTable">
           <!-- income table part -->
           <div id="incomeTableContainer">
-            <h3 id="incomeTableHead">Income</h3>
+            <h3 id="incomeTableHead">INCOME</h3>
             <div id="incomeTableItems">
               <div class="tableRow">
                 <span class="description">exemple</span>
-                <span class="value">100</span>
-                <span class="percentage">20%</span>
+                <span class="incomeValue">+10,000.00</span>
               </div>
             </div>
           </div>
           <!-- expenses table part -->
           <div id="expensesTableContainer">
-            <h3 id="expensesTableHead">Expenses</h3>
+            <h3 id="expensesTableHead">EXPENSES</h3>
             <div id="expensesTableItems">
               <div class="tableRow">
                 <span class="description">exemple</span>
-                <span class="value">200</span>
-                <span class="percentage">40%</span>
+                <div class="itemPricePrec">
+                  <span class="value">-200,00.00</span>
+                  <span class="precentage">14%</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    class="xMark"
+                  >
+                    <path
+                      d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="tableRow">
+                <span class="description">exemple</span>
+                <div class="itemPricePrec">
+                  <span class="value">-200,00.00</span>
+                  <span class="precentage">14%</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    class="xMark"
+                  >
+                    <path
+                      d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"
+                    />
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
