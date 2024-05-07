@@ -8,26 +8,36 @@
   </head>
   <body>
     <div id="main">
+      <!-- top part -->
       <div id="topContainer">
-        <div id="text">
-          <h2>Avaliable Budget in May 2024:</h2>
-          <h1 id="balance">0</h1>
+        <div id="topTextContainer">
+          <h2 id="monthHeader">Avaliable Budget in May 2024:</h2>
+          <h1 id="topBalance">0</h1>
         </div>
-        <div id="boxes">
+        <div id="boxContainer">
           <div id="incomeBox">
             <span>INCOME</span><span id="totalIncome"></span>
           </div>
           <div id="expensesBox">
             <span>EXPENSES</span>
             <span id="totalExpenses"></span>
+            <span id="precentage"></span>
           </div>
         </div>
       </div>
+
+      <!-- middle part -->
       <div id="inputContainer">
         <input type="text" id="type" />
         <input type="text" id="description" placeholder="Add description" />
-        <input type="text" id="value" placeholder="Value" />
+        <input type="text" id="value" placeholder="Value" /><svg
+          src="icon"
+        ></svg>
+        <!-- enter icon here -->
       </div>
+
+      <!-- bottom part -->
+      <div id="bottomWrappeer"></div>
     </div>
     <script src="budgetScript.js"></script>
   </body>
