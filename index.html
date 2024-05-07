@@ -39,34 +39,29 @@
       <!-- bottom part -->
       <div id="bottomContainer">
         <div id="fullTable">
-            <table id="incomeTable">
-              <th id="incomeTableHead">income</th>
-              <tr>
-                <td>website project</td>
-                <td>+2500</td>
-              </tr>
-              <tr>
-                <td>sold car</td>
-                <td>+1500</td>
-              </tr>
-            </table>
-          <table id="expensesTable">
-            <th id="expensesTableHead"></th>
-            <tr>
-              <td>rent</td>
-              <td>-900.00</td>
-            </tr>
-            <tr>
-              <td>groceries</td>
-              <td>-97.42</td>
-            </tr>
-            <tr>
-              <td>Holiday</td>
-              <td>-1,700.00</td>
-            </tr>
-          </table>
+          <!-- income table part -->
+          <div id="incomeTableContainer">
+            <h3 id="incomeTableHead">Income</h3>
+            <div id="incomeTableItems">
+              <div class="tableRow">
+                <span class="description">exemple</span>
+                <span class="value">100</span>
+                <span class="percentage">20%</span>
+              </div>
+            </div>
+          </div>
+           <!-- expenses table part -->
+          <div id="expensesTableContainer">
+            <h3 id="expensesTableHead">Expenses</h3>
+            <div id="expensesTableItems">
+              <div class="tableRow">
+                <span class="description">exemple</span>
+                <span class="value">200</span>
+                <span class="percentage">40%</span>
+              </div>
+            </div>
+          </div>
         </div>
-
       </div>
     </div>
     <script src="budgetScript.js"></script>
