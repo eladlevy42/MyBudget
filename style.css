@@ -1,40 +1,108 @@
 * {
   margin: 0;
+
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-weight: lighter;
 }
-
-#topContainer {
-  background-repeat: no-repeat;
+html {
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+}
+body {
+  margin: 0;
+  height: 100%;
   width: 100%;
-  text-align: center;
-  background-image: url("/AddOns/background.jpg");
-  height: 200px;
+}
+#main {
+  margin: 0;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+}
+/* top part */
+#topContainer {
+  line-height: 50px;
+  background-image: url("/AddOns/background.png");
+  aspect-ratio: 5/1;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   color: white;
+  text-align: center;
+  margin: 0;
 }
-#topTextContainer * {
-  margin-block: 15px 10px;
+
+#topTextContainer {
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
+#monthHeader {
+  font-size: 20px;
+}
+#topBalance {
+  font-size: 50px;
+  letter-spacing: 5px;
+}
+
 #boxContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10px;
+  padding: 0;
 }
 .box {
-  width: 200px;
-  border: 1px solid black;
-  margin: 5px;
-  display: flex;
-  justify-content: space-between;
-  padding-inline: 12px;
+  text-align: left;
+  width: 400px;
+  aspect-ratio: 7.5/1;
+  margin-block: 5px;
+  display: grid;
+  grid-template-columns: 55% 35% 10%;
+  padding-inline: 10px;
   color: black;
-  font-size: small;
-  height: 30px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 3px;
 }
 .box * {
-  margin: 0;
+  margin-block: auto;
+  padding-right: 15px;
+}
+
+#precentage {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 35px;
+  text-align: center;
+  padding-inline: 0;
+  height: 22px;
+  border-radius: 3px;
+  letter-spacing: normal;
+  color: white;
+  background-color: #ff7163;
+}
+#expensesBox {
+  background-color: #ff4f3f;
+}
+#incomeBox {
+  background-color: #2ea6af;
+}
+#totalExpenses,
+#totalIncome {
+  letter-spacing: 2px;
+  color: white;
+  text-align: right;
 }
