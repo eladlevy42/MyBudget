@@ -1,0 +1,5 @@
+income: #38B2AD
+expenses: #F83D41
+text in income and ecpenses: #69696D
+precent-background:#D2AFB2
+second line: #BCBCBC
