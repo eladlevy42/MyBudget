@@ -1,0 +1,16 @@
+1. for the type input (-+):
+    global symbol ='-' or '+'. every time user clicks typeOfInput, the symbol change and updates the dom input value.
+    also, it changes a global variable named color (for the color of the outline of the inputs):
+    function changeSymbol(){
+        if(symbol =='-'){
+            symbol ='+';
+            color='blue';
+        }
+        else{
+            symbol='-';
+            color='red';
+        }
+        document.querySelector("#typeOfInput").value = symbol;
+    }
+
+2. to color an svg, u need to use "fill:red".
