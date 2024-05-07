@@ -21,3 +21,17 @@ expensesBox - the box with the total expenses and percentage.
 totalExpenses - a span tag, that presents the total expences
 
 precentage - a span tag that shows the precentage of the totalExpanses out of the totalIncome.
+
+<!-- middle part -->
+
+inputContainer - the middle container, who contains the input form.
+
+inputForm - a form that contains the input for the new expense/income.
+
+typeOfInput - an input of +/-, that decides the type: expense/income. limited to + -, only works with the arrows to the side and not keyboard input.
+
+description - an input of text, the name of the expense/income. needs to be limited to a number of letters - need to decide.
+
+value - an input of text, the value of the expens/income. needs to be limited to positive numbers.
+
+checkMarkIcon - an svg tag, can be changed to different tag if needed. its an icon of the checkmark. when pressed - added the income/expense.
