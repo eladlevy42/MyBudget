@@ -70,7 +70,7 @@ functions:
 
     5. change the tableRow's grid-template-columns to 55% 45% (using .style).
 
-5. hideX():
+5. hideX(id):
     a function that hides the X mark at the tableRow
     elements.
     the function is being called when 'mouseout' the element.
@@ -112,7 +112,7 @@ functions:
             const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             const monthName = monthNames[monthIndex];
             const year = currentDate.getFullYear();
-            return `Avaliable Budget in ${monthName} ${year}:`
+            return `Avaliable Budget in ${monthName} ${year}:`;
     }
 
 9. print():
