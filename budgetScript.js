@@ -4,17 +4,15 @@
 let symbol = "+";
 let expansesCount = 0;
 let incomeCount = 0;
-const red = "#ff4f3f";
-const blue = "#2ea6af";
 let expensesArr = [];
 let incomeArr = [];
 let totalExpenses = 0;
 let totalBalance = 0;
 let totalIncome = 0;
-let color = blue;
 let symbolElem = document.getElementById("typeOfInput");
 let descriptionElem = document.getElementById("description");
 let valueElem = document.getElementById("value");
+let checkmarkElem = document.querySelector(".fa-check-circle");
 
 
 // // functions
@@ -93,24 +91,28 @@ function deleteItem(id) {
   tableRowElem.remove();
 }
 
-
-// changing the color variable based on the symbol (+||-)
-// changing the input outline based of the chosen symbol (+||-)
+// changing the class of the element based on the symbol (+||-)
+// therefor changing the input outline ('blue'||'red')
 symbolElem.addEventListener("change", function () {
   symbol = symbolElem.value;
-  if (symbol == "+") {
-    color = blue;
-    symbolElem.classList.add("blue")
-    descriptionElem.classList.add("blue")
-    symbolElem.classList.add("blue")
-  } else {
-    color = red;
-    symbolElem.classList.add("red")
-    descriptionElem.classList.add("red")
-    valueElem.classList.add("red")
-  }
-  console.log(color);
+  const colorClass = symbol === "+" ? "blue" : "red";
+  symbolElem.classList.remove("red", "blue");
+  descriptionElem.classList.remove("red", "blue");
+  valueElem.classList.remove("red", "blue");
+  symbolElem.classList.add(colorClass);
+  descriptionElem.classList.add(colorClass);
+  valueElem.classList.add(colorClass);
+
+  const checkMarkcolorClass = symbol === "+" ? "checkmarkBlue" : "checkmarkRed";
+  checkmarkElem.classList.remove("checkmarkRed", "checkmarkBlue");
+  checkmarkElem.classList.add(checkMarkcolorClass);
 });
 
-// document.getElementById("typeOfInput").style.outline = color;
-// symbolElem.style.outline = color;
+// const tableRow = document.querySelectorAll(".tableRow");
+// tableRow.addEventListener("mouseover", function () {
+//   if (XmarkElem.style.display === "none") {
+//     XmarkElem.style.display = "block";
+//   } else {
+//     XmarkElem.style.display = "none";
+//   }
+// });
