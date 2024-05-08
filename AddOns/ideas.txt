@@ -11,7 +11,7 @@ global variables:
     4. expensesArr/incomeArr = an array of the items, every item is an object -  {desc: 'description',value:'money'}. default is [].
     5. totalIncome/totalExpenses = a number that contains the total amount of the specific array. default is 0.
     6. totalBalance = a number that contains the total amount. default is 0.
-    7. let color = a string that contains the colors, changes ar the  changeSymbol() function. used    for the inputs outline color. default is blue.
+    7. let color = a string that contains the colors, changes ar the  changeSymbol() function. used for the inputs outline color. default is blue.
 
 --------------------------------------------------------------------
 functions:
