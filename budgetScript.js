@@ -12,7 +12,7 @@ let totalIncome = 0;
 let symbolElem = document.getElementById("typeOfInput");
 let descriptionElem = document.getElementById("description");
 let valueElem = document.getElementById("value");
-let checkmarkElem = document.getElementById("checkmark");
+let checkmarkElem = document.querySelector(".fa-check-circle");
 
 
 // // functions
@@ -96,14 +96,15 @@ function deleteItem(id) {
 symbolElem.addEventListener("change", function () {
   symbol = symbolElem.value;
   const colorClass = symbol === "+" ? "blue" : "red";
-  const checkMarkcolorClass = symbol === "+" ? "checkmarkBlue" : "checkmarkRed";
   symbolElem.classList.remove("red", "blue");
   descriptionElem.classList.remove("red", "blue");
   valueElem.classList.remove("red", "blue");
-  checkmarkElem.classList.remove("red", "blue");
   symbolElem.classList.add(colorClass);
   descriptionElem.classList.add(colorClass);
   valueElem.classList.add(colorClass);
+
+  const checkMarkcolorClass = symbol === "+" ? "checkmarkBlue" : "checkmarkRed";
+  checkmarkElem.classList.remove("checkmarkRed", "checkmarkBlue");
   checkmarkElem.classList.add(checkMarkcolorClass);
 });
 

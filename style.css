@@ -144,7 +144,7 @@ body {
 }
 
 #checkmark {
-  size: 50px, 50px;
+   font-size: 2em;
 }
 .checkmarkRed {
   fill: #ff7163;
