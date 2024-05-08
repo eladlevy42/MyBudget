@@ -135,6 +135,14 @@ body {
   text-align: center;
 }
 
+.blue {
+  outline-color: #2ea6af;
+}
+
+.red {
+  outline-color: #ff4f3f;
+}
+
 /*an idea how to change color in js*/
 /* #inputForm *:focus {
   border-color: #ff7163;
