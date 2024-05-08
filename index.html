@@ -26,7 +26,7 @@
             <span>EXPENSES</span>
 
             <span id="totalExpenses">-2,000.00</span>
-            <span class="precentage">14%</span>
+            <span class="precentage" id="headerPrecentage">14%</span>
           </div>
         </div>
       </div>
@@ -34,9 +34,17 @@
       <!-- middle part -->
       <div id="inputContainer">
         <form id="inputForm">
-          <input type="text" maxlength="1" id="typeOfInput" placeholder="-" />
-          <input type="text" id="description" placeholder="Add description" />
-          <input type="text" id="value" placeholder="Value" />
+          <select id="typeOfInput">
+            <option value="-">-</option>
+            <option value="+">+</option>
+          </select>
+          <input
+            type="text"
+            id="description"
+            placeholder="Add description"
+            minlength="2"
+          />
+          <input type="number" id="value" placeholder="Value" minlength="1" />
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
@@ -56,9 +64,21 @@
           <div id="incomeTableContainer">
             <h3 id="incomeTableHead">INCOME</h3>
             <div id="incomeTableItems">
-              <div class="tableRow">
+              <div class="tableRow" id="incomeRow1">
                 <span class="description">exemple</span>
-                <span class="incomeValue">+10,000.00</span>
+                <div class="itemPricePrec">
+                  <span class="value">+10,000.00</span>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    class="xMark"
+                  >
+                    <path
+                      d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"
+                    />
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
@@ -66,7 +86,7 @@
           <div id="expensesTableContainer">
             <h3 id="expensesTableHead">EXPENSES</h3>
             <div id="expensesTableItems">
-              <div class="tableRow">
+              <div class="tableRow" id="expensesRow1">
                 <span class="description">exemple</span>
                 <div class="itemPricePrec">
                   <span class="value">-200,00.00</span>
@@ -82,7 +102,7 @@
                   </svg>
                 </div>
               </div>
-              <div class="tableRow">
+              <div class="tableRow" id="expensesRow2">
                 <span class="description">exemple</span>
                 <div class="itemPricePrec">
                   <span class="value">-200,00.00</span>

@@ -1,16 +1,134 @@
-1. for the type input (-+):
-    global symbol ='-' or '+'. every time user clicks typeOfInput, the symbol change and updates the dom input value.
-    also, it changes a global variable named color (for the color of the outline of the inputs):
-    function changeSymbol(){
-        if(symbol =='-'){
-            symbol ='+';
-            color='blue';
-        }
-        else{
-            symbol='-';
-            color='red';
-        }
-        document.querySelector("#typeOfInput").value = symbol;
+idea explained:
+
+we will use 2 arrays, incomeArr and expensesArr.
+everytime the user clicks on the checkmark button, 
+
+-------------------------------------------------------------------
+global variables:
+    1. symbol ='-' or '+', default is '+'.
+    2. expensesCount/incomeCount = a counter for the expenses/incomes items, for the id's. default is 0.
+    3. const blue/red = a string that contains the colors, never change. 
+    4. expensesArr/incomeArr = an array of the items, every item is an object -  {desc: 'description',value:'money'}. default is [].
+    5. totalIncome/totalExpenses = a number that contains the total amount of the specific array. default is 0.
+    6. totalBalance = a number that contains the total amount. default is 0.
+    7. let color = a string that contains the colors, changes ar the  changeSymbol() function. used    for the inputs outline color. default is blue.
+
+--------------------------------------------------------------------
+functions:
+1.addToArr():
+    every time the user presses the checkmark button, the function is called:
+    1. validatetion - description is atleast 2 characters long, value is atleast 1 character and numeric.
+
+    2. creating an object with the description and value that are in the the inputs. the object : {desc: 'description',value:'money'}.
+
+    3. checks the global symbol and adds the object to the array (- for expensesArr, + for incomeArr).
+    if its expensesArr, use value*-1 so it will be negative.
+
+    4. adds/substract the value for the global variable totalExpenses/totalIncome and totalBalance.,
+
+    5. update the #totalBalance, #totalExpenses and #totalIncome values in the dom. add '+' to the totalIncome, and if totalBalance > 0 add the '+' aswell.
+
+    6. calling the addToList() function to add item to the dom.
+
+2. changeSymbol():
+    updates global symbol and global color (for the color of the outline of the inputs):
+    the function will be called on the eventListener 'change'.
+
+    1. symbol = the #typeOfInput's value.
+
+    2. change global color according to the symbol.
+
+    3. change checkmark's fill to color.
+
+3. addToList():
+    a function that adds the item to the dom:
+
+    1. checks global symbol and continue depends on it.
+
+    2. define an variable domList that contain the dom list (incomeTableItems or expensesTableItems).
+    
+    3. define variables of the last item in the selected array: let value, let description and update a global variable expensesCount/incomeCount, and define let id = `expensesRow${expensesCount}`, we will use it later. if its minus, define let precent and calculate it (the precent of the total income).
+    
+    4. define a variable let tableRowString that looks like an HTML text that contains a .tableRow elements and give it the specific id we created before.  if its an expenses, add the precentage. if its income add an '+' string next to the value.
+
+    5. adds an .tableRow element to the domList by using createElemenet.
+
+    6. add the 'mouseover', 'mouseout' eventListeners with the revealX(id,color), the hideX(id,color), and the deleteItem(id) when the specific xMark is clicked (get the specific X by using the selector '#${id} .xMark').
+
+4.revealX(id, color):
+    a function that reveals the X mark at the tableRow
+    elements.
+    the function is being called when 'mouseover' the element.
+
+    1. define a variable for the specific tableRow element let tableRow with the given id.
+
+    2. define a variable let XmarkElem for the checkmark element inside the specific tableRow (by using the selector '#${id} .xMark').
+
+    3. change the XmarkElem display to block.
+
+    4. change the fill of the XmarkElem, in the given color.
+
+    5. change the tableRow's grid-template-columns to 55% 45% (using .style).
+
+5. hideX():
+    a function that hides the X mark at the tableRow
+    elements.
+    the function is being called when 'mouseout' the element.
+
+    1. define a variable for the specific tableRow element let tableRow with the given id.
+
+    2. define a variable let XmarkElem for the checkmark element inside the specific tableRow (by using the selector '#${id} .xMark').
+
+    3. change the XmarkElem display to none.
+
+    4. change the tableRow's grid-template-columns to 60% 40% (using .style).
+
+6. deleteItem(id):
+    a function that deletes an item from the dom and array when the user clicks the X mark.
+    the given id id the tableRow's id, not the checkmark's.
+
+    1. to be able to delete the item from the array, we need to define let itemDesc let itemValue let item (an object). to get those variables, we need to use document.querySelector("#${id} .Value/.description").
+
+    2.  check which type of item is it by checking if value has an '+' in it (using indexOf on the value variable).
+
+    3.  check the index of the item in the arr and use the splice method to delete it from the arr.
+
+    4. delete the item from the dom by using the removeElement with the given id. 
+
+7. colorOutline(id):
+    a function that being the function is being called when 'focus' an input element.
+    the function color the outline of the element with the given id.
+
+    1. define let inputElement by using the given id.
+    2. change the outline to the global color variable.
+
+8. getTitle():
+    a function that returns a string for the header, by getting the name of the month and year.
+    i just used chatGPT so copy it:
+
+    function getTitle(){
+            const currentDate = new Date();
+            const monthIndex = currentDate.getMonth();
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const monthName = monthNames[monthIndex];
+            const year = currentDate.getFullYear();
+            return `Avaliable Budget in ${monthName} ${year}:`
     }
 
-2. to color an svg, u need to use "fill:red".
+9. print():
+    a function that gives the dom its default values and add eventListeners to all needed.
+    its being called in the start of the page.
+
+    1. define variables as elements needed to change or add eventListener.
+    2. adds the input element's eventListeners.
+    3. add default values.
+
+
+---------------------------------------------------------------------------------------
+list of default values for print():
+
+    1. #monthHeader = getTitle();
+    2. #topBalance = totalBalance;
+    3. #totalIncome = totalIncome;
+    4. #totalExpenses = totalExpenses;
+    5. #headerPrecentage = Math.floor((totalExpenses/totalBalance)*100);
