@@ -143,6 +143,16 @@ body {
   outline-color: #ff4f3f;
 }
 
+#checkmark {
+  size: 50px, 50px;
+}
+.checkmarkRed {
+  fill: #ff7163;
+} 
+.checkmarkBlue {
+  color: #2ea6af;
+} 
+
 /*an idea how to change color in js*/
 /* #inputForm *:focus {
   border-color: #ff7163;
