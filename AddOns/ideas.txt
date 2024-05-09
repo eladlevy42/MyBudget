@@ -123,7 +123,8 @@ functions:
     2. adds the input element's eventListeners.
     3. add default values.
 
-
+10. init:
+    
 ---------------------------------------------------------------------------------------
 list of default values for print():
 
