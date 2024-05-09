@@ -40,8 +40,8 @@ function init() {
     expensesArrJson = localStorage.getItem("expensesArr");
     expensesArr = JSON.parse(expensesArrJson);
     incomeArrJson = localStorage.getItem("incomeArr");
+    expensesArr = JSON.parse(expensesArrJson);
     incomeArr = JSON.parse(incomeArrJson);
-    console.log(expensesArr);
     console.log(incomeArr);
     if (incomeArr == undefined) {
       incomeArr = [];
@@ -186,6 +186,7 @@ function updateTitles() {
     document.querySelector("#headerPrecentage").innerText = `100%`;
   }
 }
+
 function print() {
   document.querySelector("#monthHeader").innerText = getTitle();
   updateTitles();
