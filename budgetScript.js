@@ -41,7 +41,6 @@ function init() {
     incomeArrJson = localStorage.getItem("incomeArr");
     expensesArr = JSON.parse(expensesArrJson);
     incomeArr - JSON.parse(incomeArrJson);
-    console.log(incomeArr);
     if (incomeArr == undefined) {
       incomeArr = [];
     }
@@ -155,9 +154,15 @@ function updateTitles() {
     document.querySelector("#headerPrecentage").innerText = "0%";
   }
 }
+
 function print() {
   document.querySelector("#monthHeader").innerText = getTitle();
   updateTitles();
+  console.log(incomeArr);
+  for (let index = 0; index < incomeArr.length; index++) {
+    console.log(incomeArr[index]);
+  }
+
   //update the dom from the local storage
 }
 function revealX(id, color) {
