@@ -38,9 +38,10 @@ function init() {
     incomeCount = 0.0;
   } else {
     expensesArrJson = localStorage.getItem("expensesArr");
-    incomeArrJson = localStorage.getItem("incomeArr");
     expensesArr = JSON.parse(expensesArrJson);
-    incomeArr - JSON.parse(incomeArrJson);
+    incomeArrJson = localStorage.getItem("incomeArr");
+    incomeArr = JSON.parse(incomeArrJson);
+    console.log(expensesArr);
     console.log(incomeArr);
     if (incomeArr == undefined) {
       incomeArr = [];
@@ -61,12 +62,15 @@ function updateTotal() {
   totalExpenses = 0.0;
   totalIncome = 0.0;
   for (let exp of expensesArr) {
-    totalExpenses -= parseFloat(exp.value);
+    totalExpenses -= roundToTwoDecimalPlaces(exp.value);
+    totalExpenses = roundToTwoDecimalPlaces(totalExpenses);
   }
   for (let inc of incomeArr) {
-    totalIncome += parseFloat(inc.value);
+    totalIncome += roundToTwoDecimalPlaces(inc.value);
+    totalIncome = roundToTwoDecimalPlaces(totalIncome);
   }
-  totalBalance = totalIncome + totalExpenses;
+  totalBalance = roundToTwoDecimalPlaces(totalIncome + totalExpenses);
+  updateTitles();
 }
 
 function getTitle() {
@@ -97,86 +101,152 @@ function updateLocalStorage() {
   localStorage.setItem("incomeArr", incomeArrJson);
 }
 function addToList() {
-  let domList, desc, value, row, rowElem, id;
+  let domList, desc, value, row, id, even;
   if (symbol == "+") {
     color = blue;
     domList = document.querySelector("#incomeTableItems");
     desc = incomeArr[incomeArr.length - 1].desc;
     value = incomeArr[incomeArr.length - 1].value;
     incomeCount++;
+    even = incomeCount % 2 == 0;
     id = `incomeRow${incomeCount}`;
     row = `<div class="tableRow" id="${id}">
             <span class="description">${desc}</span>
               <div class="itemPricePrec">
                 <span class="value">+ ${value}</span>
-                  <i class="fa-regular fa-circle-xmark xMark" onclick = 'deleteItem('${id}')'style = 'display: none'></i>
-              </div>
-            </div>`;
+                  <i class="fa-regular fa-circle-xmark xMark" onclick = "deleteItem('${id}')" id ='X${id}' style = 'display: none'></i>
+          </div>  </div>`;
   } else {
     color = red;
     domList = document.querySelector("#expensesTableItems");
     desc = expensesArr[expensesArr.length - 1].desc;
     value = expensesArr[expensesArr.length - 1].value;
     expansesCount++;
+    even = expansesCount % 2 == 0;
+    console.log(totalBalance);
+    let prec = Math.floor(((value * -1) / totalBalance) * 100);
     id = `expensesRow${expansesCount}`;
     row = `<div class="tableRow" id="${id}">
             <span class="description">${desc}</span>
               <div class="itemPricePrec">
-                <span class="value">${value}</span>
-                <i class="fa-regular fa-circle-xmark xMark" onclick = 'deleteItem('${id}')'style = 'display: none'></i>
-              </div>
-            </div>`;
+                <span class="value">${value}</span> <span class ='precentage'>${prec}%</span>
+                <i class="fa-regular fa-circle-xmark xMark" onclick = "deleteItem('${id}')" id ='X${id}' style = 'display: none'></i>
+            </div></div>`;
   }
-  domList.innerHTML += row;
-  rowElem = document.querySelector(`#${id}`);
-  rowElem.addEventListener("mouseover", function () {
+  const newRow = document.createElement("div");
+  newRow.innerHTML = row;
+  newRow.querySelector(".tableRow").addEventListener("mouseover", function () {
     revealX(id, color);
   });
-  rowElem.addEventListener("mouseout", function () {
+  newRow.querySelector(".tableRow").addEventListener("mouseout", function () {
     hideX(id, color);
   });
+  domList.appendChild(newRow);
+  if (even) {
+    newRow.style.backgroundColor = "grey";
+  }
+}
+
+function revealX(id, color) {
+  let tableRowElem = document.querySelector(`#${id}`);
+  let XmarkElem = document.querySelector(`#X${id}`);
+  XmarkElem.style.display = "block";
+  XmarkElem.style.fill = color;
+  tableRowElem.style.transition = "grid-template-columns 0.5s ease";
+  tableRowElem.style += "grid-template-columns 55% 45%";
+}
+
+function hideX(id) {
+  let tableRowElem = document.querySelector(`#${id}`);
+  let XmarkElem = document.querySelector(`#X${id}`);
+  XmarkElem.style = "display: none";
+  tableRowElem.style.transition = "grid-template-columns 0.5s ease";
+  tableRowElem.style += "grid-template-columns 60% 40%";
 }
 function updateTitles() {
   // function that updates the titles DOM
   document.querySelector("#totalExpenses").innerText = totalExpenses;
   document.querySelector("#totalIncome").innerText = `+${totalIncome}`;
   if (totalBalance < 0) {
-    document.querySelector("#topBalance").innerText = `${totalBalance}`;
-    document.querySelector("#headerPrecentage").innerText = `${Math.floor(
-      (totalExpenses / totalBalance) * 100
+    document.querySelector("#topBalance").innerText = `${Math.round(
+      totalBalance
+    )}`;
+    document.querySelector("#headerPrecentage").innerText = `${Math.round(
+      ((totalExpenses * -1) / totalBalance) * 100
     )}%`;
   } else if (totalBalance > 0) {
-    document.querySelector("#topBalance").innerText = `+ ${totalBalance}`;
-    document.querySelector("#headerPrecentage").innerText = `${Math.floor(
+    document.querySelector("#topBalance").innerText = `+ ${Math.round(
+      totalBalance
+    )}`;
+    document.querySelector("#headerPrecentage").innerText = `${Math.round(
       ((totalExpenses * -1) / totalBalance) * 100
     )}%`;
   } else {
     document.querySelector("#topBalance").innerText = `+ 0`;
-    document.querySelector("#headerPrecentage").innerText = "0%";
+    document.querySelector("#headerPrecentage").innerText = `100%`;
   }
 }
 function print() {
   document.querySelector("#monthHeader").innerText = getTitle();
   updateTitles();
-  //update the dom from the local storage
-}
-function revealX(id, color) {
-  let tableRowElem = document.querySelector(`#${id}`);
-  let XmarkElem = document.querySelector(`#${id} .xMark`);
-  XmarkElem.style.display = "block";
-  XmarkElem.style.fill = color;
-  tableRowElem.style += "grid-template-columns 55% 45%";
-}
-
-function hideX(id) {
-  let tableRowElem = document.querySelector(`#${id}`);
-  let XmarkElem = document.querySelector(`#${id} .xMark`);
-  XmarkElem.style = "display: none";
-  tableRowElem.style += "grid-template-columns 60% 40%";
+  console.log(incomeArr);
+  let incomeList = document.querySelector("#incomeTableItems");
+  for (let index = 0; index < incomeArr.length; index++) {
+    let incomRowObj = incomeArr[index];
+    let desc = incomRowObj.desc;
+    let value = incomRowObj.value;
+    let row = document.createElement("div");
+    let id = `incomeRow${index + 1}`;
+    row.innerHTML = `<div class="tableRow" id="${id}">
+            <span class="description">${desc}</span>
+              <div class="itemPricePrec">
+                <span class="value">+ ${value}</span>
+                  <i class="fa-regular fa-circle-xmark xMark" id = 'X${id}' onclick = 'deleteItem("${id}")'style = 'display: none'></i>
+              </div>
+            </div>`;
+    incomeList.appendChild(row);
+    if (index % 2 == 1) {
+      row.style.backgroundColor = "grey";
+    }
+    row.addEventListener("mouseover", function () {
+      revealX(id, blue);
+    });
+    row.addEventListener("mouseout", function () {
+      hideX(id, blue);
+    });
+  }
+  let expensesList = document.querySelector("#expensesTableItems");
+  for (let index = 0; index < expensesArr.length; index++) {
+    const expensesRowObj = expensesArr[index];
+    let desc = expensesRowObj.desc;
+    let value = expensesRowObj.value;
+    let row = document.createElement("div");
+    let id = `expensesRow${index + 1}`;
+    let prec = Math.floor(((value * -1) / totalBalance) * 100);
+    row.innerHTML = `<div class="tableRow" id="${id}">
+            <span class="description">${desc}</span>
+              <div class="itemPricePrec">
+                <span class="value">${value}</span> <span class ='precentage'>${prec}%</span>
+                <i class="fa-regular fa-circle-xmark xMark" onclick = "deleteItem('${id}')" id ='X${id}' style = 'display: none'></i>
+            </div></div>`;
+    expensesList.appendChild(row);
+    if (index % 2 == 1) {
+      row.style.backgroundColor = "grey";
+    }
+    row.addEventListener("mouseover", function () {
+      revealX(id, red);
+    });
+    row.addEventListener("mouseout", function () {
+      hideX(id, red);
+    });
+  }
 }
 
 function colorOutline(id) {
   document.querySelector(`#${id}`).style.outline = color;
+}
+function roundToTwoDecimalPlaces(number) {
+  return Math.round(number * 100) / 100;
 }
 
 function deleteItem(id) {
@@ -199,6 +269,8 @@ function deleteItem(id) {
   }
   tableRowElem.remove();
   updateLocalStorage();
+  updateTotal();
+  updateTitles();
 }
 
 // changing the class of the element based on the symbol (+||-)
@@ -220,23 +292,30 @@ symbolElem.addEventListener("change", function () {
 // making sure Input is longer than 2 characters
 function validateDescription() {
   let inputValue = descriptionElem.value.trim();
-  if (inputValue.length > 1) {
-    console.log("Input is longer than 2 characters");
-    return true;
-  } else {
-    alert("description must be longer then one character");
+  let err = document.querySelector("#err");
+
+  if (inputValue == null || inputValue.length < 1) {
+    err.innerText = "enter longer description.";
+    err.style.display = "block";
     return false;
+  } else {
+    console.log("Input is longer than 2 characters");
+    err.style.display = "none";
+    return true;
   }
 }
 // making sure value is higher than 0.
 function validateValue() {
   let valueInput = valueElem.value.trim();
-  if (valueInput >= 0) {
-    console.log("value is higher than 0.");
-    return true;
-  } else {
-    alert("value must be higher than 0.");
+  let err = document.querySelector("#err");
+  if (valueInput == null || valueInput.length < 1) {
+    err.innerText = "enter longer value.";
+    err.style.display = "block";
     return false;
+  } else {
+    err.style.display = "none";
+    console.log("Input is longer than 2 characters");
+    return true;
   }
 }
 
