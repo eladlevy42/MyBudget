@@ -16,6 +16,9 @@ let valueElem = document.getElementById("value");
 let checkmarkElem = document.querySelector(".fa-check-circle");
 
 // // functions
+
+
+=======
 function init() {
   if (
     localStorage.getItem("expensesArr") == null ||
@@ -56,6 +59,7 @@ function updateTotal() {
   }
   totalBalance = totalIncome + totalExpenses;
 }
+
 function getTitle() {
   const currentDate = new Date();
   const monthIndex = currentDate.getMonth();
@@ -195,3 +199,44 @@ symbolElem.addEventListener("change", function () {
   checkmarkElem.classList.remove("checkmarkRed", "checkmarkBlue");
   checkmarkElem.classList.add(checkMarkcolorClass);
 });
+
+
+// making sure Input is longer than 2 characters
+function validateDescription() {
+  let inputValue = descriptionElem.value.trim();
+  if (inputValue.length > 1) {
+    console.log("Input is longer than 2 characters");
+    return true;
+  } else {
+    alert("description must be longer then one character");
+    return false;
+  }
+}
+// making sure value is higher than 0.
+function validateValue() {
+  let valueInput = valueElem.value.trim();
+  if (valueInput >= 0) {
+    console.log("value is higher than 0.");
+    return true;
+  } else {
+    alert("value must be higher than 0.");
+    return false;
+  }
+}
+
+function addToArr() {
+  if (validateDescription() &&validateValue()) {
+    let tableRowObject = {desc: descriptionElem.value , value: valueElem.value}
+    symbol = symbolElem.value 
+    if (symbol === "+") {
+      incomeArr.push(tableRowObject) 
+      console.log(incomeArr)
+    }
+    else{
+      expensesArr.push(tableRowObject)
+      console.log(expensesArr)
+    }
+    updateTotal()
+  }
+}
+

@@ -17,7 +17,7 @@ global variables:
 functions:
 1.addToArr():
     every time the user presses the checkmark button, the function is called:
-    1. validatetion - description is atleast 2 characters long, value is atleast 1 character and numeric.
+    1. validatetion - description is atleast 2 characters long, value is atleast 1 character and higher than zero.
 
     2. creating an object with the description and value that are in the the inputs. the object : {desc: 'description',value:'money'}.
 
