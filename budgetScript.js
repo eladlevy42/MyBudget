@@ -10,15 +10,16 @@ let expansesCount,
   totalExpenses,
   totalBalance,
   totalIncome;
+let blue = "#2ea6af";
+let red = "#ff4f3f";
+let color = blue;
 let symbolElem = document.getElementById("typeOfInput");
 let descriptionElem = document.getElementById("description");
 let valueElem = document.getElementById("value");
 let checkmarkElem = document.querySelector(".fa-check-circle");
 
 // // functions
-
-
-=======
+init();
 function init() {
   if (
     localStorage.getItem("expensesArr") == null ||
@@ -40,7 +41,15 @@ function init() {
     incomeArrJson = localStorage.getItem("incomeArr");
     expensesArr = JSON.parse(expensesArrJson);
     incomeArr - JSON.parse(incomeArrJson);
+    console.log(incomeArr);
+    if (incomeArr == undefined) {
+      incomeArr = [];
+    }
     incomeCount = incomeArr.length;
+
+    if (expensesArr == undefined) {
+      expensesArr = [];
+    }
     expansesCount = expensesArr.length;
     updateTotal();
   }
@@ -91,7 +100,7 @@ function addToList() {
   let domList, desc, value, row, rowElem, id;
   if (symbol == "+") {
     domList = document.querySelector("#incomeTableItems");
-    desc = incomeArr[incomeArr.length - 1].description;
+    desc = incomeArr[incomeArr.length - 1].desc;
     value = incomeArr[incomeArr.length - 1].value;
     incomeCount++;
     id = `incomeRow${incomeCount}`;
@@ -99,12 +108,12 @@ function addToList() {
             <span class="description">${desc}</span>
               <div class="itemPricePrec">
                 <span class="value">+${value}</span>
-                  <i class="fa-regular fa-circle-xmark xMark" onclick = 'deleteItem(${id})'></i>
+                  <i class="fa-regular fa-circle-xmark xMark" onclick = 'deleteItem(${id})'style = 'display: none'></i>
               </div>
             </div>`;
   } else {
     domList = document.querySelector("#expensesTableItems");
-    desc = expensesArr[expensesArr.length - 1].description;
+    desc = expensesArr[expensesArr.length - 1].desc;
     value = expensesArr[expensesArr.length - 1].value;
     expansesCount++;
     id = `expensesRow${expansesCount}`;
@@ -112,32 +121,36 @@ function addToList() {
             <span class="description">${desc}</span>
               <div class="itemPricePrec">
                 <span class="value">${value}</span>
-                  <i class="fa-regular fa-circle-xmark xMark" onclick = 'deleteItem(${id})'></i>
+                <i class="fa-regular fa-circle-xmark xMark" onclick = 'deleteItem(${id})'style = 'display: none'></i>
               </div>
             </div>`;
   }
-  domList.innerHTML = row;
+  domList.innerHTML += row;
   rowElem = document.querySelector(`#${id}`);
-  rowElem.addEventListener("mouseover", revealX(id, color));
-  rowElem.addEventListener("mouseout", hideX(id));
+  rowElem.addEventListener("mouseover", function () {
+    revealX(id, color);
+  });
+  rowElem.addEventListener("mouseout", function () {
+    hideX(id, color);
+  });
 }
 function updateTitles() {
   // function that updates the titles DOM
-  document.querySelector("#expensesBox span").innerText = totalExpenses;
-  document.querySelector("#incomeBox span").innerText = `+${totalIncome}`;
+  document.querySelector("#totalExpenses").innerText = totalExpenses;
+  document.querySelector("#totalIncome").innerText = `+${totalIncome}`;
   if (totalBalance < 0) {
     document.querySelector("#topBalance").innerText = `${totalBalance}`;
-    document.querySelector("headerPrecentage").innerText = `${Math.floor(
-      ((totalExpenses * -1) / totalBalance) * 100
-    )}`;
+    document.querySelector("#headerPrecentage").innerText = `${Math.floor(
+      (totalExpenses / totalBalance) * 100
+    )}%`;
   } else if (totalBalance > 0) {
     document.querySelector("#topBalance").innerText = `+ ${totalBalance}`;
-    document.querySelector("headerPrecentage").innerText = Math.floor(
-      (totalExpenses / totalBalance) * 100
-    );
+    document.querySelector("#headerPrecentage").innerText = `${Math.floor(
+      ((totalExpenses * -1) / totalBalance) * 100
+    )}%`;
   } else {
     document.querySelector("#topBalance").innerText = `+ 0`;
-    document.querySelector("headerPrecentage").innerText = "0";
+    document.querySelector("#headerPrecentage").innerText = "0";
   }
 }
 function print() {
@@ -155,7 +168,7 @@ function revealX(id, color) {
 function hideX(id) {
   let tableRowElem = document.querySelector(`#${id}`);
   let XmarkElem = document.querySelector(`#${id} .xMark`);
-  XmarkElem.style.display = "none";
+  XmarkElem.style = "display: none";
   tableRowElem.style += "grid-template-columns 60% 40%";
 }
 
@@ -164,12 +177,14 @@ function colorOutline(id) {
 }
 
 function deleteItem(id) {
-  let tableRowElem = document.querySelector(`#${id}`);
+  let tableRowElem = id;
+  id = id.id;
   let itemDesc = document.querySelector(`#${id} .description`).innerText;
   let itemValue = document.querySelector(`#${id} .value`).innerText;
+  console.log(itemValue);
   let valueIndex, obj;
   if (itemValue.indexOf("+") != -1) {
-    itemValue.splice(itemValue.indexOf("+"), 1);
+    itemValue.replace(new RegExp("\\+", "g"), "");
     obj = { desc: itemDesc, value: itemValue };
     valueIndex = incomeArr.indexOf(obj);
     incomeArr.splice(valueIndex, 1);
@@ -177,7 +192,7 @@ function deleteItem(id) {
   } else {
     obj = { desc: itemDesc, value: itemValue };
     valueIndex = expensesArr.indexOf(obj);
-    incomeArr.splice(valueIndex, 1);
+    expensesArr.splice(valueIndex, 1);
     expansesCount--;
   }
   tableRowElem.remove();
@@ -199,7 +214,6 @@ symbolElem.addEventListener("change", function () {
   checkmarkElem.classList.remove("checkmarkRed", "checkmarkBlue");
   checkmarkElem.classList.add(checkMarkcolorClass);
 });
-
 
 // making sure Input is longer than 2 characters
 function validateDescription() {
@@ -225,18 +239,21 @@ function validateValue() {
 }
 
 function addToArr() {
-  if (validateDescription() &&validateValue()) {
-    let tableRowObject = {desc: descriptionElem.value , value: valueElem.value}
-    symbol = symbolElem.value 
-    if (symbol === "+") {
-      incomeArr.push(tableRowObject) 
-      console.log(incomeArr)
+  if (validateDescription() && validateValue()) {
+    let tableRowObject = {
+      desc: descriptionElem.value,
+      value: valueElem.value,
+    };
+    symbol = symbolElem.value;
+    if (symbol == "+") {
+      incomeArr.push(tableRowObject);
+      console.log(incomeArr);
+    } else {
+      expensesArr.push(tableRowObject);
+      console.log(expensesArr);
     }
-    else{
-      expensesArr.push(tableRowObject)
-      console.log(expensesArr)
-    }
-    updateTotal()
+    updateLocalStorage();
+    updateTotal();
+    addToList();
   }
 }
-

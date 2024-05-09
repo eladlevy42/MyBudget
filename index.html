@@ -52,7 +52,11 @@
             placeholder="Value"
             minlength="1"
           />
-          <i class="far fa-check-circle checkmarkBlue" id="checkmark" onclick="addToArr()"></i>
+          <i
+            class="far fa-check-circle checkmarkBlue"
+            id="checkmark"
+            onclick="addToArr()"
+          ></i>
         </form>
       </div>
 
@@ -62,37 +66,12 @@
           <!-- income table part -->
           <div id="incomeTableContainer">
             <h3 id="incomeTableHead">INCOME</h3>
-            <div id="incomeTableItems">
-              <div class="tableRow" id="incomeRow1">
-                <span class="description">exemple</span>
-                <div class="itemPricePrec">
-                  <span class="value">+10,000.00</span>
-                  <i class="fa-regular fa-circle-xmark xMark"></i>
-                </div>
-              </div>
-            </div>
+            <div id="incomeTableItems"></div>
           </div>
           <!-- expenses table part -->
           <div id="expensesTableContainer">
             <h3 id="expensesTableHead">EXPENSES</h3>
-            <div id="expensesTableItems">
-              <div class="tableRow" id="expensesRow1">
-                <span class="description">exemple</span>
-                <div class="itemPricePrec">
-                  <span class="value">-200,00.00</span>
-                  <span class="precentage">14%</span>
-                  <i class="fa-regular fa-circle-xmark xMark"></i>
-                </div>
-              </div>
-              <div class="tableRow" id="expensesRow2">
-                <span class="description">exemple</span>
-                <div class="itemPricePrec">
-                  <span class="value">-200,00.00</span>
-                  <span class="precentage">14%</span>
-                  <i class="fa-regular fa-circle-xmark xMark"></i>
-                </div>
-              </div>
-            </div>
+            <div id="expensesTableItems"></div>
           </div>
         </div>
       </div>
