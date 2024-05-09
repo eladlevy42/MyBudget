@@ -99,6 +99,7 @@ function updateLocalStorage() {
 function addToList() {
   let domList, desc, value, row, rowElem, id;
   if (symbol == "+") {
+    color = blue;
     domList = document.querySelector("#incomeTableItems");
     desc = incomeArr[incomeArr.length - 1].desc;
     value = incomeArr[incomeArr.length - 1].value;
@@ -107,11 +108,12 @@ function addToList() {
     row = `<div class="tableRow" id="${id}">
             <span class="description">${desc}</span>
               <div class="itemPricePrec">
-                <span class="value">+${value}</span>
-                  <i class="fa-regular fa-circle-xmark xMark" onclick = 'deleteItem(${id})'style = 'display: none'></i>
+                <span class="value">+ ${value}</span>
+                  <i class="fa-regular fa-circle-xmark xMark" onclick = 'deleteItem('${id}')'style = 'display: none'></i>
               </div>
             </div>`;
   } else {
+    color = red;
     domList = document.querySelector("#expensesTableItems");
     desc = expensesArr[expensesArr.length - 1].desc;
     value = expensesArr[expensesArr.length - 1].value;
@@ -121,7 +123,7 @@ function addToList() {
             <span class="description">${desc}</span>
               <div class="itemPricePrec">
                 <span class="value">${value}</span>
-                <i class="fa-regular fa-circle-xmark xMark" onclick = 'deleteItem(${id})'style = 'display: none'></i>
+                <i class="fa-regular fa-circle-xmark xMark" onclick = 'deleteItem('${id}')'style = 'display: none'></i>
               </div>
             </div>`;
   }
@@ -150,12 +152,13 @@ function updateTitles() {
     )}%`;
   } else {
     document.querySelector("#topBalance").innerText = `+ 0`;
-    document.querySelector("#headerPrecentage").innerText = "0";
+    document.querySelector("#headerPrecentage").innerText = "0%";
   }
 }
 function print() {
   document.querySelector("#monthHeader").innerText = getTitle();
   updateTitles();
+  //update the dom from the local storage
 }
 function revealX(id, color) {
   let tableRowElem = document.querySelector(`#${id}`);
@@ -177,8 +180,7 @@ function colorOutline(id) {
 }
 
 function deleteItem(id) {
-  let tableRowElem = id;
-  id = id.id;
+  let tableRowElem = document.querySelector(`#${id}`);
   let itemDesc = document.querySelector(`#${id} .description`).innerText;
   let itemValue = document.querySelector(`#${id} .value`).innerText;
   console.log(itemValue);
