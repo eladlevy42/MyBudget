@@ -42,7 +42,7 @@ function init() {
     incomeArrJson = localStorage.getItem("incomeArr");
     expensesArr = JSON.parse(expensesArrJson);
     incomeArr = JSON.parse(incomeArrJson);
-    console.log(incomeArr);
+
     if (incomeArr == undefined) {
       incomeArr = [];
     }
@@ -108,7 +108,6 @@ function addToList() {
     desc = incomeArr[incomeArr.length - 1].desc;
     value = incomeArr[incomeArr.length - 1].value;
     incomeCount++;
-    even = incomeCount % 2 == 0;
     id = `incomeRow${incomeCount}`;
     row = `<div class="tableRow" id="${id}">
             <span class="description">${desc}</span>
@@ -122,8 +121,6 @@ function addToList() {
     desc = expensesArr[expensesArr.length - 1].desc;
     value = expensesArr[expensesArr.length - 1].value;
     expansesCount++;
-    even = expansesCount % 2 == 0;
-    console.log(totalBalance);
     let prec = Math.floor(((value * -1) / totalBalance) * 100);
     id = `expensesRow${expansesCount}`;
     row = `<div class="tableRow" id="${id}">
@@ -135,33 +132,44 @@ function addToList() {
   }
   const newRow = document.createElement("div");
   newRow.innerHTML = row;
-  newRow.querySelector(".tableRow").addEventListener("mouseover", function () {
+  newRow.querySelector(`#${id}`).addEventListener("mouseover", function () {
     revealX(id, color);
   });
-  newRow.querySelector(".tableRow").addEventListener("mouseout", function () {
+  newRow.querySelector(`#${id}`).addEventListener("mouseout", function () {
     hideX(id, color);
   });
   domList.appendChild(newRow);
-  if (even) {
-    newRow.style.backgroundColor = "grey";
-  }
+  colorRows();
 }
 
 function revealX(id, color) {
   let tableRowElem = document.querySelector(`#${id}`);
   let XmarkElem = document.querySelector(`#X${id}`);
   XmarkElem.style.display = "block";
-  XmarkElem.style.fill = color;
-  tableRowElem.style.transition = "grid-template-columns 0.5s ease";
-  tableRowElem.style += "grid-template-columns 55% 45%";
+  tableRowElem.style.gridTemplateColumns = "55% 45%";
 }
 
 function hideX(id) {
   let tableRowElem = document.querySelector(`#${id}`);
   let XmarkElem = document.querySelector(`#X${id}`);
-  XmarkElem.style = "display: none";
-  tableRowElem.style.transition = "grid-template-columns 0.5s ease";
-  tableRowElem.style += "grid-template-columns 60% 40%";
+  XmarkElem.style.display = "none";
+  tableRowElem.style.gridTemplateColumns = "60% 40%";
+}
+function colorRows() {
+  updateLocalStorage();
+  console.log(incomeArr.length);
+  for (let i = 1; i <= incomeArr.length; i++) {
+    if (i % 2 == 0) {
+      document.querySelector(`#incomeRow${i}`).style.backgroundColor =
+        "rgb(245, 240, 245)";
+    }
+  }
+  for (let i = 1; i <= expensesArr.length; i++) {
+    if (i % 2 == 0) {
+      document.querySelector(`#expensesRow${i}`).style.backgroundColor =
+        "rgb(245, 240, 245)";
+    }
+  }
 }
 function updateTitles() {
   // function that updates the titles DOM
@@ -190,7 +198,6 @@ function updateTitles() {
 function print() {
   document.querySelector("#monthHeader").innerText = getTitle();
   updateTitles();
-  console.log(incomeArr);
   let incomeList = document.querySelector("#incomeTableItems");
   for (let index = 0; index < incomeArr.length; index++) {
     let incomRowObj = incomeArr[index];
@@ -206,9 +213,7 @@ function print() {
               </div>
             </div>`;
     incomeList.appendChild(row);
-    if (index % 2 == 1) {
-      row.style.backgroundColor = "grey";
-    }
+
     row.addEventListener("mouseover", function () {
       revealX(id, blue);
     });
@@ -231,9 +236,6 @@ function print() {
                 <i class="fa-regular fa-circle-xmark xMark" onclick = "deleteItem('${id}')" id ='X${id}' style = 'display: none'></i>
             </div></div>`;
     expensesList.appendChild(row);
-    if (index % 2 == 1) {
-      row.style.backgroundColor = "grey";
-    }
     row.addEventListener("mouseover", function () {
       revealX(id, red);
     });
@@ -241,6 +243,7 @@ function print() {
       hideX(id, red);
     });
   }
+  colorRows();
 }
 
 function colorOutline(id) {
@@ -254,7 +257,7 @@ function deleteItem(id) {
   let tableRowElem = document.querySelector(`#${id}`);
   let itemDesc = document.querySelector(`#${id} .description`).innerText;
   let itemValue = document.querySelector(`#${id} .value`).innerText;
-  console.log(itemValue);
+
   let valueIndex, obj;
   if (itemValue.indexOf("+") != -1) {
     itemValue.replace(new RegExp("\\+", "g"), "");
@@ -272,6 +275,7 @@ function deleteItem(id) {
   updateLocalStorage();
   updateTotal();
   updateTitles();
+  colorRows();
 }
 
 // changing the class of the element based on the symbol (+||-)
@@ -300,7 +304,6 @@ function validateDescription() {
     err.style.display = "block";
     return false;
   } else {
-    console.log("Input is longer than 2 characters");
     err.style.display = "none";
     return true;
   }
@@ -315,7 +318,6 @@ function validateValue() {
     return false;
   } else {
     err.style.display = "none";
-    console.log("Input is longer than 2 characters");
     return true;
   }
 }
@@ -329,10 +331,8 @@ function addToArr() {
     symbol = symbolElem.value;
     if (symbol == "+") {
       incomeArr.push(tableRowObject);
-      console.log(incomeArr);
     } else {
       expensesArr.push(tableRowObject);
-      console.log(expensesArr);
     }
     updateLocalStorage();
     updateTotal();
