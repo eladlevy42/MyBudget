@@ -34,18 +34,25 @@
       <!-- middle part -->
       <div id="inputContainer">
         <form id="inputForm">
-          <select id="typeOfInput">
-            <option value="-">-</option>
+          <select id="typeOfInput" class="blue">
             <option value="+">+</option>
+            <option value="-">-</option>
           </select>
           <input
+            class="blue"
             type="text"
             id="description"
             placeholder="Add description"
             minlength="2"
           />
-          <input type="number" id="value" placeholder="Value" minlength="1" />
-          <i class="far fa-check-circle" id="checkmark"></i>
+          <input
+            type="number"
+            class="blue"
+            id="value"
+            placeholder="Value"
+            minlength="1"
+          />
+          <i class="far fa-check-circle checkmarkBlue" id="checkmark"></i>
         </form>
       </div>
 
@@ -60,7 +67,7 @@
                 <span class="description">exemple</span>
                 <div class="itemPricePrec">
                   <span class="value">+10,000.00</span>
-                  <i class="fa-solid fa-xmark" class="xMark"></i>
+                  <i class="fa-regular fa-circle-xmark xMark"></i>
                 </div>
               </div>
             </div>
@@ -74,7 +81,7 @@
                 <div class="itemPricePrec">
                   <span class="value">-200,00.00</span>
                   <span class="precentage">14%</span>
-                  <i class="fa-solid fa-xmark" class="xMark"></i>
+                  <i class="fa-regular fa-circle-xmark xMark"></i>
                 </div>
               </div>
               <div class="tableRow" id="expensesRow2">
@@ -82,7 +89,7 @@
                 <div class="itemPricePrec">
                   <span class="value">-200,00.00</span>
                   <span class="precentage">14%</span>
-                  <i class="fa-solid fa-xmark" class="xMark"></i>
+                  <i class="fa-regular fa-circle-xmark xMark"></i>
                 </div>
               </div>
             </div>
@@ -93,13 +100,3 @@
     <script src="budgetScript.js"></script>
   </body>
 </html>
-
-<!-- <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-            id="checkmark"
-          >
-            <path
-              d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z"
-            />
-          </svg> -->

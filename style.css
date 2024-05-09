@@ -144,23 +144,18 @@ body {
 }
 
 #checkmark {
-   font-size: 2em;
+  font-size: 2em;
 }
 .checkmarkRed {
-  fill: #ff7163;
-} 
+  color: #ff7163;
+}
 .checkmarkBlue {
   color: #2ea6af;
-} 
-
-/*an idea how to change color in js*/
-/* #inputForm *:focus {
-  border-color: #ff7163;
-  outline: none;
 }
-#checkmark {
-  fill: #ff7163;
-} */
+input {
+  border-radius: 5px;
+  border: 1px solid black;
+}
 
 /* bottom */
 #bottomContainer {
