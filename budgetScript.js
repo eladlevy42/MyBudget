@@ -1,4 +1,3 @@
-
 // global variables
 
 let symbol = "+";
@@ -14,9 +13,10 @@ let descriptionElem = document.getElementById("description");
 let valueElem = document.getElementById("value");
 let checkmarkElem = document.querySelector(".fa-check-circle");
 
-
 // // functions
-
+function init(){
+  if(localStorage.getItem(''))
+}
 function getTitle() {
   const currentDate = new Date();
   const monthIndex = currentDate.getMonth();
@@ -102,7 +102,6 @@ symbolElem.addEventListener("change", function () {
   symbolElem.classList.add(colorClass);
   descriptionElem.classList.add(colorClass);
   valueElem.classList.add(colorClass);
-
   const checkMarkcolorClass = symbol === "+" ? "checkmarkBlue" : "checkmarkRed";
   checkmarkElem.classList.remove("checkmarkRed", "checkmarkBlue");
   checkmarkElem.classList.add(checkMarkcolorClass);
