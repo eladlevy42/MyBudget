@@ -42,7 +42,6 @@ function init() {
     incomeArrJson = localStorage.getItem("incomeArr");
     expensesArr = JSON.parse(expensesArrJson);
     incomeArr = JSON.parse(incomeArrJson);
-
     if (incomeArr == undefined) {
       incomeArr = [];
     }
@@ -53,6 +52,11 @@ function init() {
     }
     expansesCount = expensesArr.length;
     updateTotal();
+    if (incomeArr.length > 0 || expensesArr.length > 0) {
+      document.querySelector("#btnDeleteWrap").style.display = "flex";
+    } else {
+      document.querySelector("#btnDeleteWrap").style.display = "none";
+    }
   }
   print();
 }
@@ -99,9 +103,15 @@ function updateLocalStorage() {
   expensesArrJson = JSON.stringify(expensesArr);
   localStorage.setItem("expensesArr", expensesArrJson);
   localStorage.setItem("incomeArr", incomeArrJson);
+  if (incomeArr.length > 0 || expensesArr.length > 0) {
+    document.querySelector("#btnDeleteWrap").style.display = "flex";
+  } else {
+    document.querySelector("#btnDeleteWrap").style.display = "none";
+  }
 }
 function addToList() {
   let domList, desc, value, row, id, even;
+
   if (symbol == "+") {
     color = blue;
     domList = document.querySelector("#incomeTableItems");
@@ -109,7 +119,7 @@ function addToList() {
     value = incomeArr[incomeArr.length - 1].value;
     incomeCount++;
     id = `incomeRow${incomeCount}`;
-    row = `<div class="tableRow" id="${id}">
+    row = `<div class="tableRow incomeRow" id="${id}">
             <span class="description">${desc}</span>
               <div class="itemPricePrec">
                 <span class="value">+ ${value}</span>
@@ -123,7 +133,7 @@ function addToList() {
     expansesCount++;
     let prec = Math.floor(((value * -1) / totalBalance) * 100);
     id = `expensesRow${expansesCount}`;
-    row = `<div class="tableRow" id="${id}">
+    row = `<div class="tableRow expensesRow" id="${id}">
             <span class="description">${desc}</span>
               <div class="itemPricePrec">
                 <span class="value">${value}</span> <span class ='precentage'>${prec}%</span>
@@ -139,6 +149,8 @@ function addToList() {
     hideX(id, color);
   });
   domList.appendChild(newRow);
+  document.querySelector("#description").value = "";
+  document.querySelector("#value").value = "";
   colorRows();
 }
 
@@ -156,18 +168,25 @@ function hideX(id) {
   tableRowElem.style.gridTemplateColumns = "60% 40%";
 }
 function colorRows() {
-  updateLocalStorage();
-  console.log(incomeArr.length);
-  for (let i = 1; i <= incomeArr.length; i++) {
-    if (i % 2 == 0) {
-      document.querySelector(`#incomeRow${i}`).style.backgroundColor =
-        "rgb(245, 240, 245)";
+  if (incomeArr.length > 0) {
+    let incomeList = document.querySelectorAll(".incomeRow");
+    for (let i = 0; i < incomeList.length; i++) {
+      console.log(i);
+      if (i % 2 == 1) {
+        incomeList[i].style.backgroundColor = "rgb(245, 240, 245)";
+      } else {
+        incomeList[i].style.backgroundColor = "#FFFFFF";
+      }
     }
   }
-  for (let i = 1; i <= expensesArr.length; i++) {
-    if (i % 2 == 0) {
-      document.querySelector(`#expensesRow${i}`).style.backgroundColor =
-        "rgb(245, 240, 245)";
+  if (expensesArr.length > 0) {
+    let expensesList = document.querySelectorAll(".expensesRow");
+    for (let j = 0; j < expensesList.length; j++) {
+      if (j % 2 == 1) {
+        expensesList[j].style.backgroundColor = "rgb(245, 240, 245)";
+      } else {
+        expensesList[j].style.backgroundColor = "#FFFFFF";
+      }
     }
   }
 }
@@ -194,10 +213,10 @@ function updateTitles() {
     document.querySelector("#headerPrecentage").innerText = `100%`;
   }
 }
-
 function print() {
   document.querySelector("#monthHeader").innerText = getTitle();
   updateTitles();
+  console.log("print");
   let incomeList = document.querySelector("#incomeTableItems");
   for (let index = 0; index < incomeArr.length; index++) {
     let incomRowObj = incomeArr[index];
@@ -205,7 +224,7 @@ function print() {
     let value = incomRowObj.value;
     let row = document.createElement("div");
     let id = `incomeRow${index + 1}`;
-    row.innerHTML = `<div class="tableRow" id="${id}">
+    row.innerHTML = `<div class="tableRow incomeRow" id="${id}">
             <span class="description">${desc}</span>
               <div class="itemPricePrec">
                 <span class="value">+ ${value}</span>
@@ -229,7 +248,7 @@ function print() {
     let row = document.createElement("div");
     let id = `expensesRow${index + 1}`;
     let prec = Math.floor(((value * -1) / totalBalance) * 100);
-    row.innerHTML = `<div class="tableRow" id="${id}">
+    row.innerHTML = `<div class="tableRow expensesRow" id="${id}">
             <span class="description">${desc}</span>
               <div class="itemPricePrec">
                 <span class="value">${value}</span> <span class ='precentage'>${prec}%</span>
@@ -245,7 +264,6 @@ function print() {
   }
   colorRows();
 }
-
 function colorOutline(id) {
   document.querySelector(`#${id}`).style.outline = color;
 }
@@ -278,22 +296,6 @@ function deleteItem(id) {
   colorRows();
 }
 
-// changing the class of the element based on the symbol (+||-)
-// therefor changing the input outline ('blue'||'red')
-symbolElem.addEventListener("change", function () {
-  symbol = symbolElem.value;
-  const colorClass = symbol === "+" ? "blue" : "red";
-  symbolElem.classList.remove("red", "blue");
-  descriptionElem.classList.remove("red", "blue");
-  valueElem.classList.remove("red", "blue");
-  symbolElem.classList.add(colorClass);
-  descriptionElem.classList.add(colorClass);
-  valueElem.classList.add(colorClass);
-  const checkMarkcolorClass = symbol === "+" ? "checkmarkBlue" : "checkmarkRed";
-  checkmarkElem.classList.remove("checkmarkRed", "checkmarkBlue");
-  checkmarkElem.classList.add(checkMarkcolorClass);
-});
-
 // making sure Input is longer than 2 characters
 function validateDescription() {
   let inputValue = descriptionElem.value.trim();
@@ -321,7 +323,14 @@ function validateValue() {
     return true;
   }
 }
+function openMsg(event) {
+  event.preventDefault(); // Prevents the default form submission behavior
+  document.querySelector("#msg").style.display = "block";
+}
 
+function closeMsg() {
+  document.querySelector("#msg").style.display = "none";
+}
 function addToArr() {
   if (validateDescription() && validateValue()) {
     let tableRowObject = {
@@ -334,8 +343,38 @@ function addToArr() {
     } else {
       expensesArr.push(tableRowObject);
     }
+
     updateLocalStorage();
     updateTotal();
     addToList();
   }
 }
+function deleteHistory() {
+  incomeArr = [];
+  expensesArr = [];
+  incomeArrJson = "[]";
+  expensesArrJson = "[]";
+  localStorage.setItem("expensesArr", expensesArrJson);
+  localStorage.setItem("incomeArr", incomeArrJson);
+  updateLocalStorage();
+  document.querySelector("#incomeTableItems").innerHTML = "";
+  document.querySelector("#expensesTableItems").innerHTML = "";
+  closeMsg();
+}
+//event listeners
+symbolElem.addEventListener("change", function () {
+  symbol = symbolElem.value;
+  const colorClass = symbol === "+" ? "blue" : "red";
+  symbolElem.classList.remove("red", "blue");
+  descriptionElem.classList.remove("red", "blue");
+  valueElem.classList.remove("red", "blue");
+  symbolElem.classList.add(colorClass);
+  descriptionElem.classList.add(colorClass);
+  valueElem.classList.add(colorClass);
+  const checkMarkcolorClass = symbol === "+" ? "checkmarkBlue" : "checkmarkRed";
+  checkmarkElem.classList.remove("checkmarkRed", "checkmarkBlue");
+  checkmarkElem.classList.add(checkMarkcolorClass);
+});
+document.querySelector("#value").addEventListener("keyEnter", function () {
+  addToArr();
+});
