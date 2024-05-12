@@ -40,8 +40,8 @@
       </div>
       <!-- middle part -->
       <div id="inputContainer">
-        <form id="inputForm" tabindex="0">
-          <select id="typeOfInput" class="blue">
+        <form id="inputForm">
+          <select id="typeOfInput" class="blue" tabindex="1">
             <option value="+">+</option>
             <option value="-">-</option>
           </select>
@@ -51,16 +51,19 @@
             id="description"
             placeholder="Add description"
             minlength="2"
-            tabindex="1"
+            tabindex="2"
           />
           <input
-            tabindex="2"
+            tabindex="3"
             type="number"
             class="blue"
             id="value"
             placeholder="Value"
             minlength="1"
-            onkeydown="if (event.keyCode == 13) addToArr()"
+            onkeydown="if (event.keyCode === 13) {
+              event.preventDefault(); // Prevent form 
+              addToArr();
+            }"
           />
           <i
             class="far fa-check-circle checkmarkBlue"
