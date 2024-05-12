@@ -360,6 +360,8 @@ function deleteHistory() {
   document.querySelector("#incomeTableItems").innerHTML = "";
   document.querySelector("#expensesTableItems").innerHTML = "";
   closeMsg();
+  updateTotal();
+  updateTitles();
 }
 //event listeners
 symbolElem.addEventListener("change", function () {

@@ -218,11 +218,17 @@ h3 {
   padding-inline: 15px;
   display: grid;
   grid-template-columns: 60% 40%;
+  transition: all 0.8s ease; /* Add transition for all properties over 0.4 seconds */
 }
+.tableRow:hover {
+  grid-template-columns: 55% 45%; /* Change grid columns on hover */
+}
+
 .xMark {
   width: 20px;
-  display: none;
   fill: "#ff4f3f";
+  justify-self: center;
+  align-self: center;
 }
 .itemPricePrec {
   text-align: right;
@@ -264,6 +270,7 @@ button {
   border: 1px solid black;
 }
 
+/* mobile */
 @media only screen and (max-width: 1000px) {
   * {
     margin: 0;
@@ -296,7 +303,6 @@ button {
     line-height: 7vh;
     background-image: url("/AddOns/background.png");
     width: 100%;
-    aspect-ratio: 5/1;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
@@ -309,9 +315,8 @@ button {
     text-align: center;
     margin: 0;
   }
-
   #topTextContainer {
-    margin-bottom: 7vh;
+    margin-bottom: 1%;
     width: 32%;
     display: flex;
     flex-direction: column;
@@ -324,7 +329,7 @@ button {
   }
   #topBalance {
     padding-top: 1vh;
-    font-size: 7%;
+    font-size: 7vh;
   }
 
   #boxContainer {
@@ -490,6 +495,7 @@ button {
     padding-inline: 1.5vw;
     display: grid;
     grid-template-columns: 60% 40%;
+    transition: all 0.8s ease; /* Add transition for all properties over 0.4 seconds */
   }
   .xMark {
     width: 10%;
