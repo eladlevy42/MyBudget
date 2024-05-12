@@ -40,7 +40,7 @@
       </div>
       <!-- middle part -->
       <div id="inputContainer">
-        <form id="inputForm">
+        <form id="inputForm" tabindex="0">
           <select id="typeOfInput" class="blue">
             <option value="+">+</option>
             <option value="-">-</option>
@@ -51,8 +51,10 @@
             id="description"
             placeholder="Add description"
             minlength="2"
+            tabindex="1"
           />
           <input
+            tabindex="2"
             type="number"
             class="blue"
             id="value"
