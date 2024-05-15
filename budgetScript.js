@@ -1,7 +1,7 @@
 // global variables
 
 let symbol = "+";
-let expansesCount,
+let expensesCount,
   incomeCount,
   expensesArr,
   incomeArr,
@@ -34,7 +34,7 @@ function init() {
     totalBalance = 0.0;
     totalExpenses = 0.0;
     totalIncome = 0.0;
-    expansesCount = 0.0;
+    expensesCount = 0.0;
     incomeCount = 0.0;
   } else {
     expensesArrJson = localStorage.getItem("expensesArr");
@@ -50,7 +50,7 @@ function init() {
     if (expensesArr == undefined) {
       expensesArr = [];
     }
-    expansesCount = expensesArr.length;
+    expensesCount = expensesArr.length;
     updateTotal();
     if (incomeArr.length > 0 || expensesArr.length > 0) {
       document.querySelector("#btnDeleteWrap").style.display = "flex";
@@ -116,7 +116,10 @@ function addToList() {
     color = blue;
     domList = document.querySelector("#incomeTableItems");
     desc = incomeArr[incomeArr.length - 1].desc;
-    value = incomeArr[incomeArr.length - 1].value;
+    value = parseFloat(incomeArr[incomeArr.length - 1].value).toLocaleString(
+      "en",
+      { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+    ); // Format with commas
     incomeCount++;
     id = `incomeRow${incomeCount}`;
     row = `<div class="tableRow incomeRow" id="${id}">
@@ -129,10 +132,16 @@ function addToList() {
     color = red;
     domList = document.querySelector("#expensesTableItems");
     desc = expensesArr[expensesArr.length - 1].desc;
-    value = expensesArr[expensesArr.length - 1].value;
-    expansesCount++;
-    let prec = Math.floor(((value * -1) / totalBalance) * 100);
-    id = `expensesRow${expansesCount}`;
+    value = parseFloat(
+      expensesArr[expensesArr.length - 1].value
+    ).toLocaleString("en", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }); // Format with commas
+    let rawValue = expensesArr[expensesArr.length - 1].value;
+    expensesCount++;
+    let prec = Math.floor(((rawValue * -1) / totalBalance) * 100);
+    id = `expensesRow${expensesCount}`;
     row = `<div class="tableRow expensesRow" id="${id}">
             <span class="description">${desc}</span>
               <div class="itemPricePrec">
@@ -192,19 +201,35 @@ function colorRows() {
 }
 function updateTitles() {
   // function that updates the titles DOM
-  document.querySelector("#totalExpenses").innerText = totalExpenses;
-  document.querySelector("#totalIncome").innerText = `+${totalIncome}`;
+  document.querySelector("#totalExpenses").innerText =
+    totalExpenses.toLocaleString("en", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  document.querySelector(
+    "#totalIncome"
+  ).innerText = `+${totalIncome.toLocaleString("en", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+
   if (totalBalance < 0) {
     document.querySelector("#topBalance").innerText = `${Math.round(
       totalBalance
-    )}`;
+    ).toLocaleString("en", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
     document.querySelector("#headerPrecentage").innerText = `${Math.round(
       ((totalExpenses * -1) / totalBalance) * 100
     )}%`;
   } else if (totalBalance > 0) {
     document.querySelector("#topBalance").innerText = `+ ${Math.round(
       totalBalance
-    )}`;
+    ).toLocaleString("en", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
     document.querySelector("#headerPrecentage").innerText = `${Math.round(
       ((totalExpenses * -1) / totalBalance) * 100
     )}%`;
@@ -221,7 +246,10 @@ function print() {
   for (let index = 0; index < incomeArr.length; index++) {
     let incomRowObj = incomeArr[index];
     let desc = incomRowObj.desc;
-    let value = incomRowObj.value;
+    let value = parseFloat(incomRowObj.value).toLocaleString("en", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }); // Format with commas
     let row = document.createElement("div");
     let id = `incomeRow${index + 1}`;
     row.innerHTML = `<div class="tableRow incomeRow" id="${id}">
@@ -244,10 +272,14 @@ function print() {
   for (let index = 0; index < expensesArr.length; index++) {
     const expensesRowObj = expensesArr[index];
     let desc = expensesRowObj.desc;
-    let value = expensesRowObj.value;
+    let value = parseFloat(expensesRowObj.value).toLocaleString("en", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }); // Format with commas
     let row = document.createElement("div");
     let id = `expensesRow${index + 1}`;
-    let prec = Math.floor(((value * -1) / totalBalance) * 100);
+    let rawValue = expensesRowObj.value; //value before ".toLocaleString()"
+    let prec = Math.floor(((rawValue * -1) / totalBalance) * 100);
     row.innerHTML = `<div class="tableRow expensesRow" id="${id}">
             <span class="description">${desc}</span>
               <div class="itemPricePrec">
@@ -287,7 +319,7 @@ function deleteItem(id) {
     obj = { desc: itemDesc, value: itemValue };
     valueIndex = expensesArr.indexOf(obj);
     expensesArr.splice(valueIndex, 1);
-    expansesCount--;
+    expensesCount--;
   }
   tableRowElem.remove();
   updateLocalStorage();
