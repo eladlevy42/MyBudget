@@ -192,22 +192,15 @@ function colorRows() {
 }
 function updateTitles() {
   // function that updates the titles DOM
-  document.querySelector("#totalExpenses").innerText = totalExpenses;
-  document.querySelector("#totalIncome").innerText = `+${totalIncome}`;
+  document.querySelector("#totalExpenses").innerText = totalExpenses.toLocaleString(); 
+  document.querySelector("#totalIncome").innerText = `+${totalIncome.toLocaleString()}`; 
+
   if (totalBalance < 0) {
-    document.querySelector("#topBalance").innerText = `${Math.round(
-      totalBalance
-    )}`;
-    document.querySelector("#headerPrecentage").innerText = `${Math.round(
-      ((totalExpenses * -1) / totalBalance) * 100
-    )}%`;
+    document.querySelector("#topBalance").innerText = `${Math.round(totalBalance).toLocaleString()}`; 
+    document.querySelector("#headerPrecentage").innerText = `${Math.round(((totalExpenses * -1) / totalBalance) * 100)}%`;
   } else if (totalBalance > 0) {
-    document.querySelector("#topBalance").innerText = `+ ${Math.round(
-      totalBalance
-    )}`;
-    document.querySelector("#headerPrecentage").innerText = `${Math.round(
-      ((totalExpenses * -1) / totalBalance) * 100
-    )}%`;
+    document.querySelector("#topBalance").innerText = `+ ${Math.round(totalBalance).toLocaleString()}`; 
+    document.querySelector("#headerPrecentage").innerText = `${Math.round(((totalExpenses * -1) / totalBalance) * 100)}%`;
   } else {
     document.querySelector("#topBalance").innerText = `+ 0`;
     document.querySelector("#headerPrecentage").innerText = `100%`;
