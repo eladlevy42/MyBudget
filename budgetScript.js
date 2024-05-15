@@ -116,7 +116,10 @@ function addToList() {
     color = blue;
     domList = document.querySelector("#incomeTableItems");
     desc = incomeArr[incomeArr.length - 1].desc;
-    value = parseFloat(incomeArr[incomeArr.length - 1].value).toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2}); // Format with commas
+    value = parseFloat(incomeArr[incomeArr.length - 1].value).toLocaleString(
+      "en",
+      { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+    ); // Format with commas
     incomeCount++;
     id = `incomeRow${incomeCount}`;
     row = `<div class="tableRow incomeRow" id="${id}">
@@ -129,8 +132,13 @@ function addToList() {
     color = red;
     domList = document.querySelector("#expensesTableItems");
     desc = expensesArr[expensesArr.length - 1].desc;
-    value = parseFloat(expensesArr[expensesArr.length - 1].value).toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2}); // Format with commas
-    let rawValue = expensesArr[expensesArr.length - 1].value
+    value = parseFloat(
+      expensesArr[expensesArr.length - 1].value
+    ).toLocaleString("en", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }); // Format with commas
+    let rawValue = expensesArr[expensesArr.length - 1].value;
     expensesCount++;
     let prec = Math.floor(((rawValue * -1) / totalBalance) * 100);
     id = `expensesRow${expensesCount}`;
@@ -193,15 +201,38 @@ function colorRows() {
 }
 function updateTitles() {
   // function that updates the titles DOM
-  document.querySelector("#totalExpenses").innerText = totalExpenses.toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2}); 
-  document.querySelector("#totalIncome").innerText = `+${totalIncome.toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`; 
+  document.querySelector("#totalExpenses").innerText =
+    totalExpenses.toLocaleString("en", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  document.querySelector(
+    "#totalIncome"
+  ).innerText = `+${totalIncome.toLocaleString("en", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
 
   if (totalBalance < 0) {
-    document.querySelector("#topBalance").innerText = `${Math.round(totalBalance).toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`; 
-    document.querySelector("#headerPrecentage").innerText = `${Math.round(((totalExpenses * -1) / totalBalance) * 100)}%`;
+    document.querySelector("#topBalance").innerText = `${Math.round(
+      totalBalance
+    ).toLocaleString("en", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+    document.querySelector("#headerPrecentage").innerText = `${Math.round(
+      ((totalExpenses * -1) / totalBalance) * 100
+    )}%`;
   } else if (totalBalance > 0) {
-    document.querySelector("#topBalance").innerText = `+ ${Math.round(totalBalance).toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2})}` 
-    document.querySelector("#headerPrecentage").innerText = `${Math.round(((totalExpenses * -1) / totalBalance) * 100)}%`;
+    document.querySelector("#topBalance").innerText = `+ ${Math.round(
+      totalBalance
+    ).toLocaleString("en", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+    document.querySelector("#headerPrecentage").innerText = `${Math.round(
+      ((totalExpenses * -1) / totalBalance) * 100
+    )}%`;
   } else {
     document.querySelector("#topBalance").innerText = `+ 0`;
     document.querySelector("#headerPrecentage").innerText = `100%`;
@@ -215,7 +246,10 @@ function print() {
   for (let index = 0; index < incomeArr.length; index++) {
     let incomRowObj = incomeArr[index];
     let desc = incomRowObj.desc;
-    let value = parseFloat(incomRowObj.value).toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2}); // Format with commas
+    let value = parseFloat(incomRowObj.value).toLocaleString("en", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }); // Format with commas
     let row = document.createElement("div");
     let id = `incomeRow${index + 1}`;
     row.innerHTML = `<div class="tableRow incomeRow" id="${id}">
@@ -238,7 +272,10 @@ function print() {
   for (let index = 0; index < expensesArr.length; index++) {
     const expensesRowObj = expensesArr[index];
     let desc = expensesRowObj.desc;
-    let value = parseFloat(expensesRowObj.value).toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2}); // Format with commas
+    let value = parseFloat(expensesRowObj.value).toLocaleString("en", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }); // Format with commas
     let row = document.createElement("div");
     let id = `expensesRow${index + 1}`;
     let rawValue = expensesRowObj.value; //value before ".toLocaleString()"
@@ -375,77 +412,3 @@ symbolElem.addEventListener("change", function () {
 document.querySelector("#value").addEventListener("keyEnter", function () {
   addToArr();
 });
-
-
-
-
-
-function updateTitles() {
-  // function that updates the titles DOM
-  document.querySelector("#totalExpenses").innerText = totalExpenses.toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2}); 
-  document.querySelector("#totalIncome").innerText = `+${totalIncome.toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`; 
-
-  if (totalBalance < 0) {
-    document.querySelector("#topBalance").innerText = `${Math.round(totalBalance).toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`; 
-    document.querySelector("#headerPrecentage").innerText = `${Math.round(((totalExpenses * -1) / totalBalance) * 100).toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2})}%`;
-  } else if (totalBalance > 0) {
-    document.querySelector("#topBalance").innerText = `+ ${Math.round(totalBalance).toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`; 
-    document.querySelector("#headerPrecentage").innerText = `${Math.round(((totalExpenses * -1) / totalBalance) * 100).toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2})}%`;
-  } else {
-    document.querySelector("#topBalance").innerText = `+ 0.00`;
-    document.querySelector("#headerPrecentage").innerText = `100.00%`;
-  }
-}
-
-function print() {
-  document.querySelector("#monthHeader").innerText = getTitle();
-  updateTitles();
-  console.log("print");
-  let incomeList = document.querySelector("#incomeTableItems");
-  for (let index = 0; index < incomeArr.length; index++) {
-    let incomRowObj = incomeArr[index];
-    let desc = incomRowObj.desc;
-    let value = parseFloat(incomRowObj.value).toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2}); // Format with up to two decimal places and commas
-    let row = document.createElement("div");
-    let id = `incomeRow${index + 1}`;
-    row.innerHTML = `<div class="tableRow incomeRow" id="${id}">
-            <span class="description">${desc}</span>
-              <div class="itemPricePrec">
-                <span class="value">+ ${value}</span>
-                  <i class="fa-regular fa-circle-xmark xMark" id = 'X${id}' onclick = 'deleteItem("${id}")'style = 'display: none'></i>
-              </div>
-            </div>`;
-    incomeList.appendChild(row);
-
-    row.addEventListener("mouseover", function () {
-      revealX(id, blue);
-    });
-    row.addEventListener("mouseout", function () {
-      hideX(id, blue);
-    });
-  }
-  let expensesList = document.querySelector("#expensesTableItems");
-  for (let index = 0; index < expensesArr.length; index++) {
-    const expensesRowObj = expensesArr[index];
-    let desc = expensesRowObj.desc;
-    let value = parseFloat(expensesRowObj.value).toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2}); // Format with up to two decimal places and commas
-    let row = document.createElement("div");
-    let id = `expensesRow${index + 1}`;
-    let rawValue = expensesRowObj.value; //value before ".toLocaleString()"
-    let prec = Math.floor(((rawValue * -1) / totalBalance) * 100);
-    row.innerHTML = `<div class="tableRow expensesRow" id="${id}">
-            <span class="description">${desc}</span>
-              <div class="itemPricePrec">
-                <span class="value">${value}</span> <span class ='precentage'>${prec.toFixed(2)}%</span>
-                <i class="fa-regular fa-circle-xmark xMark" onclick = "deleteItem('${id}')" id ='X${id}' style = 'display: none'></i>
-            </div></div>`;
-    expensesList.appendChild(row);
-    row.addEventListener("mouseover", function () {
-      revealX(id, red);
-    });
-    row.addEventListener("mouseout", function () {
-      hideX(id, red);
-    });
-  }
-  colorRows();
-}
