@@ -1,7 +1,7 @@
 // global variables
 
 let symbol = "+";
-let expansesCount,
+let expensesCount,
   incomeCount,
   expensesArr,
   incomeArr,
@@ -34,7 +34,7 @@ function init() {
     totalBalance = 0.0;
     totalExpenses = 0.0;
     totalIncome = 0.0;
-    expansesCount = 0.0;
+    expensesCount = 0.0;
     incomeCount = 0.0;
   } else {
     expensesArrJson = localStorage.getItem("expensesArr");
@@ -50,7 +50,7 @@ function init() {
     if (expensesArr == undefined) {
       expensesArr = [];
     }
-    expansesCount = expensesArr.length;
+    expensesCount = expensesArr.length;
     updateTotal();
     if (incomeArr.length > 0 || expensesArr.length > 0) {
       document.querySelector("#btnDeleteWrap").style.display = "flex";
@@ -131,9 +131,9 @@ function addToList() {
     desc = expensesArr[expensesArr.length - 1].desc;
     value = parseFloat(expensesArr[expensesArr.length - 1].value).toLocaleString(); // Format with commas
     let rawValue = expensesArr[expensesArr.length - 1].value
-    expansesCount++;
+    expensesCount++;
     let prec = Math.floor(((rawValue * -1) / totalBalance) * 100);
-    id = `expensesRow${expansesCount}`;
+    id = `expensesRow${expensesCount}`;
     row = `<div class="tableRow expensesRow" id="${id}">
             <span class="description">${desc}</span>
               <div class="itemPricePrec">
@@ -282,7 +282,7 @@ function deleteItem(id) {
     obj = { desc: itemDesc, value: itemValue };
     valueIndex = expensesArr.indexOf(obj);
     expensesArr.splice(valueIndex, 1);
-    expansesCount--;
+    expensesCount--;
   }
   tableRowElem.remove();
   updateLocalStorage();
