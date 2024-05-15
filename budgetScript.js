@@ -116,7 +116,7 @@ function addToList() {
     color = blue;
     domList = document.querySelector("#incomeTableItems");
     desc = incomeArr[incomeArr.length - 1].desc;
-    value = incomeArr[incomeArr.length - 1].value;
+    value = parseFloat(incomeArr[incomeArr.length - 1].value).toLocaleString(); // Format with commas
     incomeCount++;
     id = `incomeRow${incomeCount}`;
     row = `<div class="tableRow incomeRow" id="${id}">
@@ -129,9 +129,10 @@ function addToList() {
     color = red;
     domList = document.querySelector("#expensesTableItems");
     desc = expensesArr[expensesArr.length - 1].desc;
-    value = expensesArr[expensesArr.length - 1].value;
+    value = parseFloat(expensesArr[expensesArr.length - 1].value).toLocaleString(); // Format with commas
+    let rawValue = expensesArr[expensesArr.length - 1].value
     expansesCount++;
-    let prec = Math.floor(((value * -1) / totalBalance) * 100);
+    let prec = Math.floor(((rawValue * -1) / totalBalance) * 100);
     id = `expensesRow${expansesCount}`;
     row = `<div class="tableRow expensesRow" id="${id}">
             <span class="description">${desc}</span>
@@ -214,7 +215,7 @@ function print() {
   for (let index = 0; index < incomeArr.length; index++) {
     let incomRowObj = incomeArr[index];
     let desc = incomRowObj.desc;
-    let value = incomRowObj.value;
+    let value = parseFloat(incomRowObj.value).toLocaleString(); // Format with commas
     let row = document.createElement("div");
     let id = `incomeRow${index + 1}`;
     row.innerHTML = `<div class="tableRow incomeRow" id="${id}">
@@ -237,10 +238,11 @@ function print() {
   for (let index = 0; index < expensesArr.length; index++) {
     const expensesRowObj = expensesArr[index];
     let desc = expensesRowObj.desc;
-    let value = expensesRowObj.value;
+    let value = parseFloat(expensesRowObj.value).toLocaleString(); // Format with commas
     let row = document.createElement("div");
     let id = `expensesRow${index + 1}`;
-    let prec = Math.floor(((value * -1) / totalBalance) * 100);
+    let rawValue = expensesRowObj.value; //value before ".toLocaleString()"
+    let prec = Math.floor(((rawValue * -1) / totalBalance) * 100);
     row.innerHTML = `<div class="tableRow expensesRow" id="${id}">
             <span class="description">${desc}</span>
               <div class="itemPricePrec">
