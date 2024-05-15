@@ -205,25 +205,20 @@ h3 {
 #incomeTableHead,
 #incomeTableItems .itemPricePrec {
   color: #2ea6af;
-  justify-content: right;
 }
 #expensesTableHead,
 #expensesTableItems .itemPricePrec {
   color: #ff4f3f;
 }
-.tableRow {
+.tableRow,
+.incomeRow {
   border-bottom: 1px solid black;
   border-top: 1px solid black;
   padding-block: 12px;
   padding-inline: 15px;
   display: grid;
   grid-template-columns: 60% 40%;
-  transition: all 0.8s ease; /* Add transition for all properties over 0.4 seconds */
 }
-.tableRow:hover {
-  grid-template-columns: 55% 45%; /* Change grid columns on hover */
-}
-
 .xMark {
   width: 20px;
   fill: "#ff4f3f";
@@ -482,7 +477,6 @@ button {
   #incomeTableHead,
   #incomeTableItems .itemPricePrec {
     color: #2ea6af;
-    justify-content: right;
   }
   #expensesTableHead,
   #expensesTableItems .itemPricePrec {
@@ -495,7 +489,6 @@ button {
     padding-inline: 1.5vw;
     display: grid;
     grid-template-columns: 60% 40%;
-    transition: all 0.8s ease; /* Add transition for all properties over 0.4 seconds */
   }
   .xMark {
     width: 10%;
