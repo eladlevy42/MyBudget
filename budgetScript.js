@@ -66,7 +66,6 @@ function print() {
   // a function that prints the entire board after initializing.
   // prints the board based on the arrays.
   document.querySelector("#monthHeader").innerText = updateDate();
-  updateTitles();
   //print the income List
   let incomeList = document.querySelector("#incomeTableItems");
   for (let index = 0; index < incomeArr.length; index++) {
@@ -105,7 +104,7 @@ function print() {
     let row = document.createElement("div");
     let id = `expensesRow${index + 1}`;
     let rawValue = expensesRowObj.value; //value before ".toLocaleString()"
-    let prec = Math.floor((rawValue / totalExpenses) * 100);
+    let prec = Math.floor(((rawValue * -1) / totalExpenses) * 100);
     row.innerHTML = `<div class="tableRow expensesRow" id="${id}">
             <span class="description">${desc}</span>
               <div class="itemPricePrec">
@@ -190,7 +189,6 @@ function updateTitles() {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })}`;
-
   if (totalBalance < 0) {
     document.querySelector(
       "#topBalance"
@@ -241,7 +239,6 @@ function updateDate() {
   const year = currentDate.getFullYear();
   return `Avaliable Budget in ${monthName} ${year}:`;
 }
-
 function addToArr() {
   if (validateDescription() && validateValue()) {
     let tableRowObject = {
@@ -291,7 +288,7 @@ function addToList() {
     }); // Format with commas
     let rawValue = expensesArr[expensesArr.length - 1].value;
     expensesCount++;
-    let prec = Math.floor((rawValue / totalExpenses) * 100);
+    let prec = Math.floor(((rawValue * -1) / totalExpenses) * 100);
     id = `expensesRow${expensesCount}`;
     row = `<div class="tableRow expensesRow" id="${id}">
             <span class="description">${desc}</span>
@@ -315,7 +312,6 @@ function addToList() {
   updateTitles();
   colorRows();
 }
-
 function revealX(id) {
   // a function to reveal the X mark when the mouseover the tableRow element.
   let tableRowElem = document.querySelector(`#${id}`);
@@ -324,7 +320,6 @@ function revealX(id) {
   tableRowElem.style.gridTemplateColumns = "55% 45%";
   tableRowElem.style.transition = "all 0.8s";
 }
-
 function hideX(id) {
   // a function to hide the X mark when the mouseout the tableRow element.
   let tableRowElem = document.querySelector(`#${id}`);
@@ -333,7 +328,6 @@ function hideX(id) {
   tableRowElem.style.transition = "all 0.8s"; // Ensure transition is applied correctly
   tableRowElem.style.gridTemplateColumns = "60% 40%";
 }
-
 function deleteItem(id) {
   // the function called when user press on Xmark.
   // it gets the id of the tableRow element that the Xmark is in.
@@ -364,7 +358,6 @@ function deleteItem(id) {
   updateTitles();
   colorRows();
 }
-
 function validateDescription() {
   let inputValue = descriptionElem.value.trim();
   let err = document.querySelector("#err");
@@ -390,19 +383,16 @@ function validateValue() {
     return true;
   }
 }
-
 function openMsg(event) {
   // called when the first 'delete history' (#msg) btn is called.
   // changes the display of the popUp div to 'block' (default = none)
   event.preventDefault(); // to prevent the default event. for somereason without this line the popUp is collapsing.
   document.querySelector("#msg").style.display = "block";
 }
-
 function closeMsg() {
   // changes the display of the popUp div back to 'none'
   document.querySelector("#msg").style.display = "none";
 }
-
 function deleteHistory() {
   // the function being called on the second 'delete history' btn, in the popUp.
   // it resets the variables, updates the local storage to empty arrays and updates the DOM.
@@ -420,7 +410,6 @@ function deleteHistory() {
   updateTotal();
   updateTitles();
 }
-
 //event listeners
 symbolElem.addEventListener("change", function () {
   // event listener for the change of the '+' and '-'.
@@ -438,11 +427,8 @@ symbolElem.addEventListener("change", function () {
   checkmarkElem.classList.remove("checkmarkRed", "checkmarkBlue");
   checkmarkElem.classList.add(checkMarkcolorClass);
 });
-
 document.querySelector("#value").addEventListener("keyEnter", function () {
   // event listener for the #value input. when the enter key is pressed and value is onfocus.
   addToArr();
 });
-
-//onload
-window.onload = init();
+init();
