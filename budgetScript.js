@@ -299,6 +299,7 @@ function addToList() {
   }
   const newRow = document.createElement("div");
   newRow.innerHTML = row;
+
   newRow.querySelector(`#${id}`).addEventListener("mouseover", function () {
     revealX(id, color);
   });
@@ -308,9 +309,27 @@ function addToList() {
   domList.appendChild(newRow);
   document.querySelector("#description").value = "";
   document.querySelector("#value").value = "";
+  calculatePercentage();
   updateTotal();
   updateTitles();
   colorRows();
+}
+function calculatePercentage() {
+  // function that recalculate all the rows precentages.
+  let rowList = document.querySelectorAll(".expensesRow");
+  for (let row of rowList) {
+    let id = row.id;
+    let value = document.querySelector(
+      `#${id} .itemPricePrec .value`
+    ).innerText;
+    console.log(parseFloat(value));
+    let newPrec = ((parseFloat(value) * -1) / parseFloat(totalBalance)) * 100;
+    document.querySelector(`#${id} .itemPricePrec .precentage`).innerText =
+      newPrec.toLocaleString("en", {
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1,
+      });
+  }
 }
 function revealX(id) {
   // a function to reveal the X mark when the mouseover the tableRow element.
