@@ -370,7 +370,7 @@ function validateDescription() {
   let err = document.querySelector("#err");
 
   if (inputValue == null || inputValue.length < 1) {
-    err.innerText = "enter longer description.";
+    err.innerText = "enter valid description.";
     err.style.display = "block";
     return false;
   } else {
@@ -382,7 +382,7 @@ function validateValue() {
   let valueInput = valueElem.value.trim();
   let err = document.querySelector("#err");
   if (valueInput == null || valueInput.length < 1) {
-    err.innerText = "enter longer value.";
+    err.innerText = "enter valid value.";
     err.style.display = "block";
     return false;
   } else {
