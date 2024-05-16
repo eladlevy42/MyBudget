@@ -372,9 +372,14 @@ function validateDescription() {
   }
 }
 function validateValue() {
-  let valueInput = valueElem.value.trim();
+  let valueInput = valueElem.value;
   let err = document.querySelector("#err");
-  if (valueInput == null || valueInput.length < 1) {
+  console.log(valueInput.indexOf("-") != -1);
+  if (
+    valueInput == null ||
+    valueInput.length < 1 ||
+    valueInput.indexOf("-") != -1
+  ) {
     err.innerText = "enter valid value.";
     err.style.display = "block";
     return false;
