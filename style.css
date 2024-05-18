@@ -327,7 +327,7 @@ body.dark {
       Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
       sans-serif;
     font-weight: lighter;
-    font-size: 2vw;
+    font-size: 15px;
   }
   html {
     overflow-y: scroll;
@@ -355,7 +355,6 @@ body.dark {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -373,7 +372,7 @@ body.dark {
     font-size: 15%;
   }
   #monthHeader {
-    font-size: 3vw;
+    font-size: 25px;
     padding-bottom: 1vh;
   }
   #topBalance {
@@ -401,11 +400,12 @@ body.dark {
     color: black;
     font-weight: 700;
     border-radius: 1vw;
+    min-width: 250px;
   }
   .box * {
     margin-block: auto;
     padding-right: 1vw;
-    font-size: 2vw;
+    font-size: 15px;
   }
 
   .precentage {
