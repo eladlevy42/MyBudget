@@ -9,6 +9,7 @@ let expensesCount,
   totalExpenses,
   totalBalance,
   totalIncome;
+let darkMode = false;
 let blue = "#2ea6af";
 let red = "#ff4f3f";
 let color = blue;
@@ -44,6 +45,7 @@ function init() {
     incomeArrJson = localStorage.getItem("incomeArr");
     expensesArr = JSON.parse(expensesArrJson);
     incomeArr = JSON.parse(incomeArrJson);
+    console.log(incomeArr);
     if (incomeArr == undefined) {
       incomeArr = [];
     }
@@ -145,18 +147,7 @@ function colorRows() {
     }
   }
 }
-function updateLocalStorage() {
-  // a function that updates the local storage.
-  incomeArrJson = JSON.stringify(incomeArr);
-  expensesArrJson = JSON.stringify(expensesArr);
-  localStorage.setItem("expensesArr", expensesArrJson);
-  localStorage.setItem("incomeArr", incomeArrJson);
-  if (incomeArr.length > 0 || expensesArr.length > 0) {
-    document.querySelector("#btnDeleteWrap").style.display = "flex";
-  } else {
-    document.querySelector("#btnDeleteWrap").style.display = "none";
-  }
-}
+
 function updateTotal() {
   // a function that updates the total balance, total income and total expenses
   // it runs on a loop for ecery array and sums the total.
@@ -371,7 +362,7 @@ function deleteItem(id) {
   }
   //updates DOM
   tableRowElem.remove();
-
+  calculatePercentage();
   updateLocalStorage();
   updateTotal();
   updateTitles();
@@ -434,6 +425,27 @@ function deleteHistory() {
   updateTotal();
   updateTitles();
 }
+
+function goDarkMode() {
+  let precList = document.querySelectorAll(".precentage");
+  for (let i of precList) {
+    i.classList.toggle("dark");
+  }
+  let tableRowList = document.querySelectorAll(".tableRow");
+  for (let j of tableRowList) {
+    j.classList.toggle("dark");
+    console.log(j);
+  }
+  document.querySelector("#expensesBox").classList.toggle("dark");
+  document.querySelector("#incomeBox").classList.toggle("dark");
+  document.querySelector("body").classList.toggle("dark");
+  document.querySelector("#inputContainer").classList.toggle("dark");
+  document.querySelector("#inputForm").classList.toggle("dark");
+  document.querySelector("#btnDeleteWrap").classList.toggle("dark");
+  document.querySelector("#checkmark").classList.toggle("dark");
+  document.querySelector("#darkMode").classList.toggle("flip");
+}
+
 //event listeners
 symbolElem.addEventListener("change", function () {
   // event listener for the change of the '+' and '-'.

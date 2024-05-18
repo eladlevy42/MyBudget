@@ -17,6 +17,7 @@ body {
   height: 100%;
   width: 100%;
 }
+
 #main {
   margin: 0;
   height: 100%;
@@ -81,7 +82,6 @@ body {
   margin-block: auto;
   padding-right: 15px;
 }
-
 .precentage {
   display: flex;
   justify-content: center;
@@ -96,12 +96,15 @@ body {
   color: white;
   background-color: #ff7163;
 }
+
 #expensesBox {
   background-color: #ff4f3f;
 }
+
 #incomeBox {
   background-color: #2ea6af;
 }
+
 #totalExpenses,
 #totalIncome {
   letter-spacing: 2px;
@@ -132,6 +135,7 @@ body {
   height: 30px;
   padding-inline: 10px;
 }
+
 #typeOfInput {
   padding: 0;
   text-align: center;
@@ -221,6 +225,7 @@ h3 {
   display: grid;
   grid-template-columns: 60% 40%;
 }
+
 .xMark {
   width: 20px;
   fill: "#ff4f3f";
@@ -266,7 +271,54 @@ button {
   border-radius: 3px;
   border: 1px solid black;
 }
+/* dark */
+#darkMode {
+  position: fixed;
+  margin: 5px;
+  background-color: transparent;
+  border: 0;
+  font-size: larger;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+#btnDeleteWrap.dark {
+  background-color: #8a2be2;
+}
 
+#inputContainer.dark {
+  background-color: blueviolet;
+}
+#inputForm.dark * {
+  color: white;
+  background-color: darkblue;
+}
+#checkmark.dark {
+  background-color: #8a2be2 !important;
+}
+.tableRow.dark {
+  background-color: blueviolet !important;
+  color: white;
+}
+#incomeBox.dark {
+  background-color: blue !important;
+  color: white;
+}
+#expensesBox.dark {
+  background-color: red;
+  color: white;
+}
+body.dark {
+  background-color: darkslateblue;
+}
+.tableRow.dark * {
+  color: white;
+}
+.precentage .dark {
+  background-color: #ff4f3f;
+}
+#darkMode.flip {
+  transform: rotateY(180deg);
+}
 /* mobile */
 @media only screen and (max-width: 1000px) {
   * {
@@ -437,6 +489,7 @@ button {
   #checkmark {
     font-size: 2em;
   }
+
   .checkmarkRed {
     color: #ff7163;
   }
