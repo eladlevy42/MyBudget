@@ -2,7 +2,7 @@ this is a dictionary for the names.
 
 <!-- top part -->
 
-topContainer - the main big container of the top part.it borders with the picture.
+topContainer - the main big container of the top part. it borders with the picture.
 
 topTextContainer - the top text, both "avaliable" and the balance.
 

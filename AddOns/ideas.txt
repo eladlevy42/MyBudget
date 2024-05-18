@@ -104,7 +104,7 @@ functions:
 
 8. getTitle():
     a function that returns a string for the header, by getting the name of the month and year.
-    i just used chatGPT so copy it:
+
 
     function getTitle(){
             const currentDate = new Date();
